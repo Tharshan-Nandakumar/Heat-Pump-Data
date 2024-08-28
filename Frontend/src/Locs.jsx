@@ -1,7 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 
-const Locs = ({ location, setLocation }) => {
+const Locs = () => {
+  const [location, setLocation] = useState("");
+  const [date, setDate] = useState("");
+  function handleSubmit(e) {
+    e.preventDefault();
+    axios
+      .post("http://localhost:8082/locs", { location, date })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  }
   const locations = [
     "Aldridge",
     "Ashtead",
@@ -76,19 +85,28 @@ const Locs = ({ location, setLocation }) => {
 
   return (
     <div>
-      <label htmlFor="location-select">Choose a location:</label>
-      <select
-        id="location-select"
-        name="location"
-        value={location}
-        onChange={(e) => setLocation(e.target.value)}
-      >
-        {locations.map((loc) => (
-          <option key={loc} value={loc}>
-            {loc.replace("_", " ")}
-          </option>
-        ))}
-      </select>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="location-select">Choose a location:</label>
+          <select
+            id="location-select"
+            name="location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+          >
+            {locations.map((loc) => (
+              <option key={loc} value={loc}>
+                {loc.replace("_", " ")}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label htmlFor="date">Choose a date:</label>
+          <input type="date" onChange={(e) => setDate(e.target.value)} />
+        </div>
+        <button>Submit</button>
+      </form>
     </div>
   );
 };
