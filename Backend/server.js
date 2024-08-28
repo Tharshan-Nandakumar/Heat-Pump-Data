@@ -1,9 +1,10 @@
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
-console.log("hi");
+
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 HOST = "20.90.138.131"; //VM IP
 DATABASE = "gshp";
@@ -30,36 +31,20 @@ app.get("/", (re, res) => {
   return res.json("From Backend Side");
 });
 
-app.get("/users", async (req, res) => {
-  const location = req.query.location;
-  console.log(location);
-  site = "Aldridge";
+app.post("/locs", (req, res) => {
+  site = req.body.location || "Aldridge";
+  date = req.body.date;
   const sql =
     "SELECT * FROM gshp.gshp_meter_data WHERE Date = '" +
-    "2023/11/22" +
+    date.replaceAll("-", "/") +
     "' AND  Site = '" +
-    site.replace("_", " ") +
+    site.replaceAll("_", " ") +
     "';";
   db.query(sql, (err, data) => {
-    if (err) return res.json(err);
+    if (err) return res.json("Error");
     return res.json(data);
   });
 });
-/*
-//"SELECT * FROM gshp.gshp_meter_data WHERE Date = '"+"2023/11/22"+"' AND  Site = '"+site.replace("_"," ")+"';"
-app.get("/users", (req, res) => {
-  site = "Aldridge";
-  const sql =
-    "SELECT * FROM gshp.gshp_meter_data WHERE Date = '" +
-    "2023/11/22" +
-    "' AND  Site = '" +
-    site.replace("_", " ") +
-    "';";
-  db.query(sql, (err, data) => {
-    if (err) return res.json(err);
-    return res.json(data);
-  });
-});*/
 
 app.listen(8082, () => {
   console.log("Listening");
