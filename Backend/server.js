@@ -7,7 +7,13 @@ app.use("/", (req, res) => {
   res.send("Server is running.");
 });
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://heat-pump-data-frontend.vercel.app/"],
+    methods: ["POST", "GET"],
+    credentials: true,
+  })
+);
 
 HOST = "20.90.138.131"; //VM IP
 DATABASE = "gshp";
