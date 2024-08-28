@@ -1,22 +1,27 @@
-import { useEffect, useState } from "react";
+//import { useState, useEffect } from "react";
 import Locs from "./Locs";
-import DisplayLocation from "./Dis";
+//import DisplayLocation from "./Dis";
 function App() {
-  const [data, setData] = useState([]);
-
+  //const [data, setData] = useState([]);
+  /*
   useEffect(() => {
-    fetch("http://localhost:8082/users")
+    fetch("http://localhost:8082/filtered_data")
       .then((res) => res.json())
       .then((data) => setData(data))
       .catch((err) => console.log(err));
   }, []);
-
-  const [location, setLocation] = useState("");
-
+  console.log(data);
+  */
   return (
     <div style={{ padding: "50px" }}>
-      <Locs location={location} setLocation={setLocation} />
-      <DisplayLocation location={location} />
+      <Locs />
+    </div>
+  );
+}
+
+export default App;
+
+/*
       <table>
         <thead>
           <tr>
@@ -47,8 +52,4 @@ function App() {
           ))}
         </tbody>
       </table>
-    </div>
-  );
-}
-
-export default App;
+*/
