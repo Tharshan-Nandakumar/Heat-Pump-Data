@@ -3,6 +3,9 @@ const mysql = require("mysql2");
 const cors = require("cors");
 
 const app = express();
+app.use("/", (req, res) => {
+  res.send("Server is running.");
+});
 app.use(express.json());
 app.use(cors());
 
