@@ -7,10 +7,7 @@ const Locs = () => {
   function handleSubmit(e) {
     e.preventDefault();
     axios
-      .post(
-        "https://heat-pump-data-frontend-3lhn31z33-tharshan-nandakumars-projects.vercel.app/",
-        { location, date }
-      )
+      .post("https://heat-pump-data-backend.vercel.app", { location, date })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   }
