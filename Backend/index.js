@@ -50,9 +50,8 @@ app.post("*", (req, res) => {
     "' AND  Site = '" +
     site.replaceAll("_", " ") +
     "';";
-  return res.json(sql);
   db.query(sql, (err, data) => {
-    if (err) return res.json("Error");
+    if (err) return res.json(err);
     return res.json(data);
   });
 });
