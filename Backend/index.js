@@ -43,7 +43,7 @@ app.get("/", (re, res) => {
 app.post("*", (req, res) => {
   site = req.body.location || "Aldridge";
   date = req.body.date;
-  return res.json(site);
+  //return res.json(site);
   console.log(date);
   const sql =
     "SELECT * FROM gshp.gshp_meter_data WHERE Date = '" +
