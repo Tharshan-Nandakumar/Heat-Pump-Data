@@ -43,6 +43,8 @@ app.get("/", (re, res) => {
 app.post("/locs", (req, res) => {
   site = req.body.location || "Aldridge";
   date = req.body.date;
+  console.log(site);
+  console.log(date);
   const sql =
     "SELECT * FROM gshp.gshp_meter_data WHERE Date = '" +
     date.replaceAll("-", "/") +
@@ -55,6 +57,6 @@ app.post("/locs", (req, res) => {
   });
 });
 
-app.listen(8082, () => {
-  console.log("Listening");
-});
+//app.listen(8082, () => {
+//  console.log("Listening");
+//});
