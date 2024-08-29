@@ -7,7 +7,7 @@ const Locs = () => {
   function handleSubmit(e) {
     e.preventDefault();
     axios
-      .post("https://heat-pump-data-backend.vercel.app/locs", {
+      .post("https://heat-pump-data-backend.vercel.app", {
         location,
         date,
       })
