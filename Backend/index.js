@@ -27,6 +27,7 @@ const db = mysql.createConnection({
   password: PASSWORD,
   database: DATABASE,
   connectTimeout: 300000,
+  port: 3306,
 });
 
 db.connect((err) => {
@@ -57,6 +58,6 @@ app.post("*", (req, res) => {
   });
 });
 
-app.listen(8082, () => {
+app.listen(3306, () => {
   console.log("Listening");
 });
