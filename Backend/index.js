@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["https://heat-pump-data-frontend.vercel.app"],
+    origin: ["https://heat-pump-data-frontend.vercel.app/locs"],
     methods: ["GET", "POST"],
     credentials: true,
   })
@@ -57,6 +57,6 @@ app.post("/locs", (req, res) => {
   });
 });
 
-//app.listen(8082, () => {
-//  console.log("Listening");
-//});
+app.listen(8082, () => {
+  console.log("Listening");
+});
