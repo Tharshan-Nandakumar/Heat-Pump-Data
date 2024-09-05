@@ -300,3 +300,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     height: 0.9em;
   }
 }
+
+@media screen and (max-width: 480px) {
+  #location-select {
+    background-color: blue;
+  }
+}
