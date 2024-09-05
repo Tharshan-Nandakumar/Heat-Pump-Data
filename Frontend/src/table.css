@@ -252,7 +252,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 
   .export_button {
-    margin-left: 0;
+    margin-left: 5%;
   }
 
   .data h6 {
@@ -355,7 +355,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     position: static;
     width: 100%;
     text-align: center;
-    margin-left: 0%;
+    margin-left: 5%;
     font-size: 0.8em;
     margin-top: -10px;
   }
@@ -371,7 +371,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 @media screen and (max-width: 480px) {
-  #heat_pump_data {
+  #heat_pump_data,
+  .export_button {
     margin-left: 5%;
   }
 
