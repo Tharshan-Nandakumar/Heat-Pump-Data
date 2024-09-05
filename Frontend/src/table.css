@@ -10,7 +10,7 @@
 
 #heat_pump_data {
   margin: 0 auto;
-  width: 100%;
+  width: 80%;
   text-align: center;
   border-collapse: collapse;
   font-size: 1em;
@@ -27,7 +27,7 @@
 }
 
 .inputs {
-  width: 100%;
+  width: 80%;
   margin: auto;
   box-sizing: border-box;
   padding: 0;
@@ -304,5 +304,38 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 @media screen and (max-width: 480px) {
   #location-select {
     background-color: blue;
+  }
+  #date {
+    height: 0.9em;
+  }
+
+  .data h6 {
+    display: inline-block;
+    margin-top: 0;
+    font-size: 0.8em;
+  }
+  .data h6 .passes {
+    position: relative;
+    margin-left: -10%;
+  }
+
+  #heat_pump_data thead tr,
+  button {
+    font-size: 0.8em;
+  }
+
+  .data #table {
+    font-size: 0.6em;
+    margin: auto;
+    color: #3b4049;
+    width: 98%;
+  }
+
+  #health_report {
+    font-size: 0.8em;
+  }
+
+  .data h4 {
+    font-size: 0.8em;
   }
 }
