@@ -85,6 +85,7 @@ h6 {
 
 .data h6 {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   text-align: center;
@@ -163,8 +164,68 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   margin-left: 10%;
 }
 
+/* Responsive Styles for Tablets */
+@media screen and (max-width: 1155px) {
+  #heat_pump_data {
+    width: 90%; /* Adjust table width */
+    font-size: 0.9em;
+  }
+
+  #logo {
+    width: 180px; /* Adjust logo size */
+    top: 10px;
+    right: 10px;
+  }
+
+  .inputs,
+  .export_button {
+    width: 90%;
+    margin-left: 5%;
+  }
+
+  h1 {
+    font-size: 36px;
+  }
+
+  h4 {
+    font-size: 22px;
+  }
+
+  h6 {
+    font-size: 14px;
+  }
+
+  .data h6 {
+    flex-direction: row;
+    text-align: center;
+    margin-left: 5%;
+  }
+
+  .site-info {
+    margin-left: 5%;
+  }
+
+  .date-info {
+    left: 45%; /* Adjust positioning for smaller screens */
+  }
+
+  .data #table {
+    margin: auto;
+    color: #3b4049;
+    width: 90%;
+  }
+
+  #heat_pump_data thead tr,
+  button {
+    background-color: #1cb683;
+    color: #ffffff;
+    text-align: center;
+    font-size: 1.1em;
+  }
+}
+
 /* Responsive Styles for Mobile Phones */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 835px) {
   #heat_pump_data {
     width: 100%; /* Full width for mobile */
     font-size: 0.8em;
@@ -184,29 +245,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-size: 20px;
   }
 
-  .data h6 {
-    display: inline-block;
-    margin-top: 0;
-  }
-  .data h6 .passes {
-    position: relative;
-    margin-left: -21%;
-  }
-
-  .faults {
-    margin-left: 17%;
-  }
-
-  .warnings {
-    position: relative;
-    margin-left: 17%;
-  }
-
-  .nas {
-    position: relative;
-    margin-left: 17%;
-  }
-
   .inputs,
   .export_button {
     width: 100%; /* Full width inputs and buttons */
@@ -217,8 +255,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 
   .data h6 {
-    margin-left: 0; /* Align with full width */
-    flex-direction: column;
+    margin-left: 2.5%; /* Align with full width */
+    flex-direction: row;
+    width: 85%;
+    margin-top: 0;
   }
 
   .site-info {
@@ -245,7 +285,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 /* Ultra Small Devices (Phones in Portrait Mode) */
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 660px) {
   #heat_pump_data {
     font-size: 0.7em; /* Smaller font */
     position: relative;
@@ -264,27 +304,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 
   .data h6 {
-    display: inline-block;
+    margin-left: 2.5%; /* Align with full width */
+    flex-direction: row;
+    width: 85%;
     margin-top: 0;
   }
-  .data h6 .passes {
-    position: relative;
-    margin-left: -20%;
+
+  .site-info {
+    margin-left: 2.5%;
   }
 
-  .faults {
-    position: relative;
-    margin-left: 15%;
-  }
-
-  .warnings {
-    position: relative;
-    margin-left: 15%;
-  }
-
-  .nas {
-    position: relative;
-    margin-left: 15%;
+  .date-info {
+    left: 47.5%; /* Adjust positioning for smaller screens */
   }
 
   h1 {
@@ -316,7 +347,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     background-color: #1cb683;
     color: #ffffff;
     text-align: center;
-    font-size: 1em;
+    font-size: 1.1em;
   }
 
   .export_button {
