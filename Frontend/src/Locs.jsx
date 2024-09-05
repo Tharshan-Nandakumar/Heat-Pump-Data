@@ -205,7 +205,7 @@ const Locs = () => {
   };
 
   return (
-    <div>
+    <div className="website">
       <h1 className="title">Heat Pump Data</h1>
       <form onSubmit={handleSubmit} className="form-group">
         <div className="inputs">

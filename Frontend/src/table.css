@@ -68,6 +68,7 @@ h6 {
   text-align: left;
   left: 60%;
 }
+
 .data h6 {
   display: flex;
   justify-content: space-between;
@@ -146,4 +147,136 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   width: 80%;
   text-align: center;
   margin-left: 10%;
+}
+
+/* Responsive Styles for Mobile Phones */
+@media screen and (max-width: 768px) {
+  #heat_pump_data {
+    width: 100%; /* Full width for mobile */
+    font-size: 0.8em;
+  }
+
+  #logo {
+    width: 150px; /* Smaller logo */
+    top: 10px;
+    right: 10px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  h4 {
+    font-size: 20px;
+  }
+
+  h6 {
+    font-size: 12px;
+  }
+
+  .inputs,
+  .export_button {
+    width: 100%; /* Full width inputs and buttons */
+  }
+
+  .data h6 {
+    margin-left: 0; /* Align with full width */
+    flex-direction: column;
+  }
+
+  .site-info {
+    margin-left: 5%;
+  }
+
+  .date-info {
+    left: 50%; /* Adjust positioning for smaller screens */
+  }
+}
+
+/* Ultra Small Devices (Phones in Portrait Mode) */
+@media screen and (max-width: 500px) {
+  #heat_pump_data {
+    font-size: 0.7em; /* Smaller font */
+    position: relative;
+  }
+
+  .data {
+    position: static;
+    margin-top: 40px;
+    padding-bottom: 10px;
+  }
+
+  #health_report {
+    position: relative;
+    top: 35px;
+  }
+
+  .data h6 {
+    display: inline-block;
+    margin-top: 0;
+  }
+  .data h6 .passes {
+    position: static;
+    margin-left: -20%;
+  }
+
+  .faults {
+    position: static;
+    margin-left: 15%;
+  }
+
+  .warnings {
+    position: static;
+    margin-left: 15%;
+  }
+
+  .nas {
+    position: static;
+    margin-left: 15%;
+  }
+
+  h1 {
+    font-size: 24px; /* Reduce heading size */
+  }
+
+  h4 {
+    font-size: 18px;
+  }
+
+  h6 {
+    font-size: 10px;
+  }
+
+  #logo {
+    width: 120px; /* Even smaller logo */
+  }
+
+  .data #table {
+    width: 95%; /* Full width table for smaller screens */
+    font-size: 0.8em;
+  }
+
+  /* Table Header */
+  #heat_pump_data thead tr,
+  button {
+    background-color: #1cb683;
+    color: #ffffff;
+    text-align: center;
+    font-size: 1em;
+  }
+
+  .export_button {
+    position: static;
+    width: 100%;
+    text-align: center;
+    margin-left: 0%;
+    font-size: 0.8em;
+    margin-top: -10px;
+  }
+
+  #location-select,
+  #date,
+  button {
+    font-size: 0.9em;
+  }
 }
