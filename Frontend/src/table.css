@@ -216,22 +216,22 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin-top: 0;
   }
   .data h6 .passes {
-    position: static;
+    position: relative;
     margin-left: -20%;
   }
 
   .faults {
-    position: static;
+    position: relative;
     margin-left: 15%;
   }
 
   .warnings {
-    position: static;
+    position: relative;
     margin-left: 15%;
   }
 
   .nas {
-    position: static;
+    position: relative;
     margin-left: 15%;
   }
 
@@ -252,8 +252,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 
   .data #table {
-    width: 95%; /* Full width table for smaller screens */
     font-size: 0.8em;
+    margin: auto;
+    color: #3b4049;
+    width: 95%;
   }
 
   /* Table Header */
@@ -278,5 +280,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   #date,
   button {
     font-size: 0.9em;
+  }
+  #date {
+    height: 0.9em;
   }
 }

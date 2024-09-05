@@ -235,6 +235,7 @@ const Locs = () => {
               className="form-control form-control-lg"
               id="date"
               type="date"
+              placeholder="dd/mm/yyyy"
               onFocus="this.showPicker()"
               onChange={(e) => setDate(e.target.value)}
             />
