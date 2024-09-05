@@ -313,7 +313,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
   .data h6 .passes {
     position: relative;
-    margin-left: -10%;
+    margin-left: -15%;
   }
 
   #heat_pump_data thead tr,
@@ -322,7 +322,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 
   .data #table {
-    font-size: 0.4em;
+    font-size: 0.5em;
     margin: auto;
     color: #3b4049;
     width: 98%;
@@ -334,5 +334,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
   .data h4 {
     font-size: 0.8em;
+    margin-bottom: 0;
+  }
+
+  .data {
+    padding-bottom: 2px;
   }
 }
