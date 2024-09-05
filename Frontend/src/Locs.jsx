@@ -205,41 +205,44 @@ const Locs = () => {
   };
 
   return (
-    <div className="card card-body mb-4 p-4">
+    <div>
       <h1 className="title">Heat Pump Data</h1>
       <form onSubmit={handleSubmit} className="form-group">
-        <div>
-          <h4>
-            <label htmlFor="location-select">Choose a location:</label>
-          </h4>
-          <select
-            id="location-select"
-            name="location"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            className="form-control form-control-lg"
-          >
-            {locations.map((loc) => (
-              <option key={loc} value={loc}>
-                {loc.replace("_", " ")}
-              </option>
-            ))}
-          </select>
+        <div className="inputs">
+          <div>
+            <h4>
+              <label htmlFor="location-select">Choose a location:</label>
+            </h4>
+            <select
+              id="location-select"
+              name="location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="form-control form-control-lg"
+            >
+              {locations.map((loc) => (
+                <option key={loc} value={loc}>
+                  {loc.replace("_", " ")}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="input-container">
+            <h4>
+              <label htmlFor="date">Choose a date:</label>
+            </h4>
+            <input
+              className="form-control form-control-lg"
+              id="date"
+              type="date"
+              onFocus="this.showPicker()"
+              onChange={(e) => setDate(e.target.value)}
+            />
+            <button className="button" type="submit">
+              Submit
+            </button>
+          </div>
         </div>
-        <div>
-          <h4>
-            <label htmlFor="date">Choose a date:</label>
-          </h4>
-          <input
-            id="date"
-            type="date"
-            onChange={(e) => setDate(e.target.value)}
-            className="form-control form-control-lg"
-          />
-        </div>
-        <button className="button" type="submit">
-          Submit
-        </button>
       </form>
 
       {error && <p>{error}</p>}
@@ -249,6 +252,8 @@ const Locs = () => {
           <div className="table-heading">
             <h1 id="health_report">Health Report</h1>
             <img id="logo" src={logo} alt="Rendesco logo" />
+          </div>
+          <div className="data">
             <h4>
               <span className="site-info">
                 Site: {location.replace("_", " ")}
@@ -261,32 +266,33 @@ const Locs = () => {
               <span className="warnings">Warnings: </span>
               <span className="nas">N/As:</span>
             </h6>
-          </div>
-          <table id="table">
-            <thead>
-              <tr>
-                <th>Fault Code</th>
-                <th>Status</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              {faultCodesArray.map((d, i) => (
-                <tr key={i}>
-                  <td>{d.fault_code}</td>
-                  <td style={{ backgroundColor: statusColours[d.status] }}>
-                    {d.status}
-                  </td>
-                  <td>
-                    <nobr>{d.description}</nobr>
-                  </td>
+
+            <table id="table">
+              <thead>
+                <tr>
+                  <th>Fault Code</th>
+                  <th>Status</th>
+                  <th>Description</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {faultCodesArray.map((d, i) => (
+                  <tr key={i}>
+                    <td>{d.fault_code}</td>
+                    <td style={{ backgroundColor: statusColours[d.status] }}>
+                      {d.status}
+                    </td>
+                    <td>
+                      <nobr>{d.description}</nobr>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       }
-      <button className="button" onClick={exportPDF}>
+      <button className="export_button" onClick={exportPDF}>
         Export as PDF
       </button>
     </div>

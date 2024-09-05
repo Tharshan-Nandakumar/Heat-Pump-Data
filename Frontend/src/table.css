@@ -1,6 +1,6 @@
 #heat_pump_data {
   margin: 20px auto;
-  width: auto;
+  width: 80%;
   text-align: center;
   border-collapse: collapse;
   font-size: 1em;
@@ -9,16 +9,22 @@
   position: relative;
 }
 
+#location-select {
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.inputs {
+  width: 80%;
+  margin: auto;
+}
+
 #logo {
   position: absolute;
   top: 10px;
   right: 10px;
   width: 225px;
   height: auto;
-}
-
-#health_report {
-  margin-top: 50px;
 }
 
 h1 {
@@ -36,64 +42,47 @@ h4 {
 h6 {
   font-size: 16px;
 }
-/* Table Heading */
-.table-heading h4,
-h6 {
+
+#health_report {
+  position: relative;
+  top: 50px;
+}
+
+/* Data */
+.data {
+  position: static;
+  margin-top: 60px;
+  padding-bottom: 30px;
+}
+
+.data h4 {
+  display: flex;
+}
+.site-info {
+  text-align: left;
+  margin-left: 10%;
+}
+
+.date-info {
+  position: absolute;
+  text-align: left;
+  left: 60%;
+}
+.data h6 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 20px;
+  text-align: center;
   color: #3b4049;
-}
-.table-heading h6 {
-  margin-top: 30px;
-  color: #3b4049;
-}
-
-/* Site and Date Span Styling */
-.table-heading .site-info {
-  text-align: left;
-  position: absolute;
-  color: #3b4049;
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 20px;
 }
 
-.table-heading .date-info {
-  text-align: left;
-  margin-left: 300px;
-  position: absolute;
+.data #table {
+  margin: auto;
   color: #3b4049;
-}
-
-.table-heading .passes {
-  text-align: left;
-  position: absolute;
-  color: #3b4049;
-}
-
-.table-heading .faults {
-  text-align: left;
-  margin-left: 170px;
-  position: absolute;
-  color: #3b4049;
-}
-
-.table-heading .warnings {
-  text-align: left;
-  margin-left: 340px;
-  position: absolute;
-  color: #3b4049;
-}
-
-.table-heading .nas {
-  text-align: left;
-  margin-left: 510px;
-  position: absolute;
-  color: #3b4049;
-}
-
-#table {
-  margin: 20px;
-  color: #3b4049;
+  width: 80%;
 }
 
 /* Table Header */
@@ -102,15 +91,37 @@ button {
   background-color: #1cb683;
   color: #ffffff;
   text-align: center;
-  font-size: 16px;
-  width: 100%;
+  font-size: 20px;
 }
 
 button {
-  margin: 10px 0px;
   border-radius: 10px;
   border: 1px solid black;
+  width: 100%;
+  margin: 10px 0;
 }
+
+.input-container input {
+  box-sizing: border-box;
+  outline: 0;
+  padding: 0.75rem;
+  position: relative;
+  width: 100%;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background: transparent;
+  bottom: 0;
+  color: transparent;
+  cursor: pointer;
+  height: auto;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto;
+}
+
 /* Table Cells */
 #heat_pump_data th,
 #heat_pump_data td {
@@ -128,4 +139,11 @@ button {
 #heat_pump_data tbody tr:nth-of-type(even) {
   background-color: #f3f3f3;
   color: #3b4049;
+}
+
+.export_button {
+  position: static;
+  width: 80%;
+  text-align: center;
+  margin-left: 10%;
 }
