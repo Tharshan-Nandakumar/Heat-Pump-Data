@@ -7,6 +7,7 @@ const app = express();
 //  res.send("Server is running.");
 //});
 app.use(express.json());
+/*
 app.use(
   cors({
     origin: ["https://heat-pump-data-frontend.vercel.app"],
@@ -14,7 +15,8 @@ app.use(
     credentials: true,
   })
 );
-
+*/
+app.use(cors());
 HOST = "20.90.138.131"; //VM IP
 DATABASE = "gshp";
 USER = "TNandakumar";
@@ -26,8 +28,6 @@ const db = mysql.createConnection({
   user: USER,
   password: PASSWORD,
   database: DATABASE,
-  connectTimeout: 300000,
-  port: 3306,
 });
 
 db.connect((err) => {
@@ -42,7 +42,7 @@ app.get("/", (re, res) => {
   return res.json("From Backend Side");
 });
 
-app.post("*", (req, res) => {
+app.post("/locs", (req, res) => {
   site = req.body.location || "Aldridge";
   date = req.body.date;
   console.log(date);
@@ -58,6 +58,6 @@ app.post("*", (req, res) => {
   });
 });
 
-app.listen(3306, () => {
+app.listen(8082, () => {
   console.log("Listening");
 });
