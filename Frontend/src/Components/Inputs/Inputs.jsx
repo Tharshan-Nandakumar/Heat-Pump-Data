@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import HealthReport from "../../HealthReport";
 function Inputs() {
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("Aldridge");
   const [date, setDate] = useState("");
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
@@ -16,8 +16,14 @@ function Inputs() {
         date,
       })
       .then((res) => {
-        console.log(res.data);
-        setData(res.data);
+        if (res.data.fatal !== true) {
+          console.log(res.data);
+          setData(res.data);
+        } else {
+          setError(
+            "An error occured while fetching data. Please check/refresh database connection"
+          );
+        }
       })
       .catch((err) => {
         console.log(err);

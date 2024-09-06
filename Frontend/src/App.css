@@ -8,6 +8,11 @@
   padding: 0;
 }
 
+.error {
+  font-size: 16px;
+  margin-left: 10%;
+}
+
 #heat_pump_data {
   margin: 0 auto;
   width: 80%;
@@ -177,6 +182,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     right: 10px;
   }
 
+  .error {
+    font-size: 16px;
+    margin-left: 5%;
+  }
+
   .inputs,
   .export_button {
     width: 90%;
@@ -244,6 +254,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
   h4 {
     font-size: 20px;
+  }
+
+  .error {
+    font-size: 16px;
+    margin-left: 5%;
   }
 
   .inputs,
@@ -350,6 +365,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     text-align: center;
     font-size: 1.1em;
   }
+  .error {
+    font-size: 16px;
+    margin-left: 5%;
+  }
 
   .export_button {
     position: static;
@@ -373,6 +392,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 @media screen and (max-width: 480px) {
   #heat_pump_data,
   .export_button {
+    margin-left: 5%;
+  }
+
+  .error {
+    font-size: 16px;
     margin-left: 5%;
   }
 

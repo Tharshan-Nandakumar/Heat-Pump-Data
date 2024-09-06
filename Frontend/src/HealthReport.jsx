@@ -4,9 +4,17 @@ import html2canvas from "html2canvas";
 import "./App.css";
 import logo from "./rendesco.png";
 import PropTypes from "prop-types";
+import { useState, useEffect } from "react";
+import Spinner from "./Components/Spinner/Spinner";
 
-const HealthReport = ({ location, date, error }) => {
-  const faultCodesArray = [];
+const HealthReport = ({ location, date, data, error }) => {
+  const [faultCodesArray, setfaultCodesArray] = useState([]);
+  const [statusCounts, setStatusCounts] = useState({
+    Pass: 0,
+    Warning: 0,
+    Fault: 0,
+    "N/A": 0,
+  }); // State to hold counts for each status
   const descriptions = [
     "External ambient temperature (R1) sensor agreement check",
     "In-line return temperature (R2) sensor agreement check",
@@ -74,25 +82,76 @@ const HealthReport = ({ location, date, error }) => {
   ];
 
   const statusColours = {
-    1.0: "red",
-    0.5: "yellow",
-    0.0: "#66FF00",
+    Fault: "red",
+    Warning: "yellow",
+    Pass: "#66FF00",
     "N/A": "white",
   };
 
-  const values = [1.0, 0.5, 0.0, "N/A"];
-  for (let i = 1; i <= 63; i++) {
-    const formattedNumber = i.toString().padStart(3, "0"); // Pads the number with leading zeros to ensure it has 3 digits
-    const faultCode = `FC_${formattedNumber}`;
+  // Function to map status values to their respective labels
+  const mapStatus = (status) => {
+    switch (status) {
+      case "0.0":
+        return "Pass";
+      case "0.5":
+        return "Warning";
+      case "1.0":
+        return "Fault";
+      case "-99.0":
+        return "N/A";
+      default:
+        return "Unknown"; // Handle unexpected values, if necessary
+    }
+  };
 
-    const faultObject = {
-      fault_code: faultCode,
-      status: values[Math.floor(Math.random() * 4)],
-      description: descriptions[i - 1],
-    };
+  // Use useEffect to detect when the data has been set
+  useEffect(() => {
+    if (data && data.length > 0) {
+      const faultCodes = [];
+      let counts = { Pass: 0, Warning: 0, Fault: 0, "N/A": 0 }; // Reset counts to zero
 
-    faultCodesArray.push(faultObject);
-  }
+      for (let i = 1; i <= 63; i++) {
+        const formattedNumber = i.toString().padStart(3, "0"); // Pads the number with leading zeros to ensure it has 3 digits
+        const faultCode = `FC_${formattedNumber}`;
+
+        const faultObject = {
+          fault_code: faultCode,
+          status: mapStatus(data[0][faultCode]),
+          description: descriptions[i - 1],
+        };
+
+        // Increment the appropriate count based on the status
+        if (counts[faultObject.status] !== undefined) {
+          counts[faultObject.status] += 1;
+        }
+
+        faultCodes.push(faultObject);
+        setStatusCounts(counts);
+      }
+
+      setfaultCodesArray(faultCodes);
+    } else if (date && !data) {
+      const faultCodes = [];
+      for (let i = 1; i <= 63; i++) {
+        const formattedNumber = i.toString().padStart(3, "0"); // Pads the number with leading zeros to ensure it has 3 digits
+        const faultCode = `FC_${formattedNumber}`;
+
+        const faultObject = {
+          fault_code: faultCode,
+          status: "N/A",
+          description: descriptions[i - 1],
+        };
+        faultCodes.push(faultObject);
+      }
+      setfaultCodesArray(faultCodes);
+      setStatusCounts({
+        Pass: 0,
+        Warning: 0,
+        Fault: 0,
+        "N/A": 63,
+      });
+    }
+  }, [data, date, error]);
 
   const exportPDF = () => {
     const input = document.getElementById("heat_pump_data"); // The id of the table you want to export
@@ -107,12 +166,12 @@ const HealthReport = ({ location, date, error }) => {
       pdf.save(`${location}_${date}_Fault_Codes.pdf`); // The name of the file you want to save
     });
   };
-
+  console.log(error);
   return (
     <div>
-      {error && <p>{error}</p>}
-      {/*data === null && <Spinner />*/}
-      {
+      {error && <p className="error">{error}</p>}
+      {data === null && !error && <Spinner />}
+      {faultCodesArray.length !== 0 && !error && (
         <div id="heat_pump_data">
           <div className="table-heading">
             <h1 id="health_report">Health Report</h1>
@@ -126,10 +185,10 @@ const HealthReport = ({ location, date, error }) => {
               <span className="date-info">Date: {date}</span>
             </h4>
             <h6>
-              <span className="passes">Passes: </span>
-              <span className="faults">Faults: </span>
-              <span className="warnings">Warnings: </span>
-              <span className="nas">N/As:</span>
+              <span className="passes">Passes: {statusCounts.Pass}</span>
+              <span className="faults">Faults: {statusCounts.Fault}</span>
+              <span className="warnings">Warnings: {statusCounts.Warning}</span>
+              <span className="nas">N/As: {statusCounts["N/A"]}</span>
             </h6>
 
             <table id="table">
@@ -143,11 +202,13 @@ const HealthReport = ({ location, date, error }) => {
               <tbody>
                 {faultCodesArray.map((d, i) => (
                   <tr key={i}>
-                    <td>{d.fault_code}</td>
+                    <td style={{ backgroundColor: statusColours[d.status] }}>
+                      {d.fault_code}
+                    </td>
                     <td style={{ backgroundColor: statusColours[d.status] }}>
                       {d.status}
                     </td>
-                    <td>
+                    <td style={{ backgroundColor: statusColours[d.status] }}>
                       <nobr>{d.description}</nobr>
                     </td>
                   </tr>
@@ -156,10 +217,12 @@ const HealthReport = ({ location, date, error }) => {
             </table>
           </div>
         </div>
-      }
-      <button className="export_button" onClick={exportPDF}>
-        Export as PDF
-      </button>
+      )}
+      {faultCodesArray.length !== 0 && !error && (
+        <button className="export_button" onClick={exportPDF}>
+          Export as PDF
+        </button>
+      )}
     </div>
   );
 };
