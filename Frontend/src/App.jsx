@@ -1,6 +1,6 @@
 //import { useState, useEffect } from "react";
-import Locs from "./Locs";
-//import DisplayLocation from "./Dis";
+import Inputs from "./Components/Inputs/Inputs";
+
 /*
 import {
   AuthenticatedTemplate,
@@ -47,8 +47,8 @@ function App(/*{ instance }*/) {
     // <MsalProvider instance={instance}>
     //   <WrappedView />
     // </MsalProvider>
-    <div style={{ padding: "50px" }}>
-      <Locs />
+    <div style={{ padding: "10px" }}>
+      <Inputs />
     </div> //replace successfully above ??
   );
 }
