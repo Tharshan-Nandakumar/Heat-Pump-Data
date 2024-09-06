@@ -21,13 +21,15 @@ function Inputs() {
           setData(res.data);
         } else {
           setError(
-            "An error occured while fetching data. Please check/refresh database connection"
+            "An error occurred while fetching data. Please check/refresh database connection"
           );
         }
       })
       .catch((err) => {
         console.log(err);
-        setError("An error occured while fetching data");
+        setError(
+          "An error occurred while fetching data. You may not have access to the data from this IP address"
+        );
       });
   }
   //"https://heat-pump-data-backend.vercel.app"
