@@ -1,7 +1,6 @@
 //import { useState, useEffect } from "react";
-import Inputs from "./Components/Inputs/Inputs";
+//import Inputs from "./Components/Inputs/Inputs";
 
-/*
 import {
   AuthenticatedTemplate,
   UnauthenticatedTemplate,
@@ -41,18 +40,18 @@ const WrappedView = () => {
     </div>
   );
 };
-*/
-function App(/*{ instance }*/) {
+
+function App({ instance }) {
   return (
-    // <MsalProvider instance={instance}>
-    //   <WrappedView />
-    // </MsalProvider>
-    <div style={{ padding: "10px" }}>
-      <Inputs />
-    </div> //replace successfully above ??
+    <MsalProvider instance={instance}>
+      <WrappedView />
+    </MsalProvider>
   );
 }
 
 export default App;
-
-// Site location at top, then table with fault code, status description
+/*
+<div style={{ padding: "10px" }}>
+<Inputs />
+</div> //replace successfully above ??
+*/
