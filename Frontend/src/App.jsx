@@ -32,7 +32,7 @@ const WrappedView = () => {
         ) : null}
       </AuthenticatedTemplate>
       <UnauthenticatedTemplate>
-        <button onClick={handleRedirect}>Sign up</button>
+        <button onClick={handleRedirect}>Log in</button>
       </UnauthenticatedTemplate>
     </div>
   );
