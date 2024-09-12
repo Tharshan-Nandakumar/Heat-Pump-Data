@@ -24,12 +24,7 @@ const WrappedView = () => {
   return (
     <div className="App">
       <AuthenticatedTemplate>
-        {activeAccount ? (
-          <div style={{ padding: "10px" }}>
-            <Inputs />
-            <button onClick={handleLogout}>Log out</button>
-          </div>
-        ) : null}
+        {activeAccount ? <p>hi</p> : null}
       </AuthenticatedTemplate>
       <UnauthenticatedTemplate>
         <button onClick={handleRedirect}>Log in</button>
@@ -47,3 +42,7 @@ function App({ instance }) {
 }
 
 export default App;
+/*          <div style={{ padding: "10px" }}>
+            <Inputs />
+            <button onClick={handleLogout}>Log out</button>
+          </div>*/
