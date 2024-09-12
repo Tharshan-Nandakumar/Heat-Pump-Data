@@ -5,7 +5,8 @@ export const msalConfig = {
     // This is the only mandatory field
     clientId: "0e99117b-b153-489a-8054-acf350be9ef1",
     // Replace the placeholder with tenant subdomain
-    authority: "https://login.microsoftonline.com/rendesco.com",
+    authority:
+      "https://login.microsoftonline.com/e68bde71-5fbd-4e79-ab99-9f87823bc2f2",
     // Points to window.location.origin. This URI needs to be registered on Azure Portal/App Registration
     redirectUri: "https://heat-pump-data-frontend.vercel.app/",
     // Indicates the page to navigate to after logout
