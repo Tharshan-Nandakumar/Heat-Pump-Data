@@ -1,5 +1,5 @@
 //import { useState, useEffect } from "react";
-//import Inputs from "./Components/Inputs/Inputs";
+import Inputs from "./Components/Inputs/Inputs";
 
 import {
   AuthenticatedTemplate,
@@ -25,12 +25,9 @@ const WrappedView = () => {
     <div className="App">
       <AuthenticatedTemplate>
         {activeAccount ? (
-          <div>
-            Authenticated Successfully...
-            <div>
-              Click here to logout
-              <button onClick={handleLogout}>Log out</button>
-            </div>
+          <div style={{ padding: "10px" }}>
+            <Inputs />
+            <button onClick={handleLogout}>Log out</button>
           </div>
         ) : null}
       </AuthenticatedTemplate>
@@ -51,7 +48,7 @@ function App({ instance }) {
 
 export default App;
 /*
-<div style={{ padding: "10px" }}>
-<Inputs />
+<div }>
+
 </div> //replace successfully above ??
 */
