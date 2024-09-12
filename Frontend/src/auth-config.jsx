@@ -3,9 +3,9 @@ import { LogLevel } from "@azure/msal-browser";
 export const msalConfig = {
   auth: {
     // This is the only mandatory field
-    clientId: "",
+    clientId: "0e99117b-b153-489a-8054-acf350be9ef1",
     // Replace the placeholder with tenant subdomain
-    authority: "",
+    authority: "https://login.microsoftonline.com/rendesco.com",
     // Points to window.location.origin. This URI needs to be registered on Azure Portal/App Registration
     redirectUri: "/",
     // Indicates the page to navigate to after logout
