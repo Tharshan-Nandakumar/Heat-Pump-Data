@@ -7,7 +7,7 @@ const app = express();
 //  res.send("Server is running.");
 //});
 app.use(express.json());
-/*
+
 app.use(
   cors({
     origin: ["https://heat-pump-data-frontend.vercel.app"],
@@ -15,7 +15,7 @@ app.use(
     credentials: true,
   })
 );
-*/
+
 app.use(cors());
 HOST = "20.90.138.131"; //VM IP
 DATABASE = "ecms";

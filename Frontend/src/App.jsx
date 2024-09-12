@@ -47,8 +47,3 @@ function App({ instance }) {
 }
 
 export default App;
-/*
-<div }>
-
-</div> //replace successfully above ??
-*/
