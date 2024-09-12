@@ -7,7 +7,7 @@ export const msalConfig = {
     // Replace the placeholder with tenant subdomain
     authority: "https://login.microsoftonline.com/rendesco.com",
     // Points to window.location.origin. This URI needs to be registered on Azure Portal/App Registration
-    redirectUri: "/",
+    redirectUri: "https://heat-pump-data-frontend.vercel.app/",
     // Indicates the page to navigate to after logout
     postLogoutRedirectUri: "/",
     // If "true", will navigate back to the original request location before processing the auth code response
