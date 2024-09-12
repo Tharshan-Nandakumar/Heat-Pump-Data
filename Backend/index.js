@@ -42,7 +42,7 @@ app.get("/", (re, res) => {
   return res.json("From Backend Side");
 });
 
-app.post("/locs", (req, res) => {
+app.post("/", (req, res) => {
   site = req.body.location || "Aldridge";
   date = req.body.date || "2022-11-22";
   console.log(date);
