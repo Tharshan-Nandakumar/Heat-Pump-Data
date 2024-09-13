@@ -218,7 +218,7 @@ const HealthReport = ({ location, date, data, error }) => {
           </div>
         </div>
       )}
-      {faultCodesArray.length !== 0 && !error && (
+      {faultCodesArray.length !== 0 && !error && !(<Spinner />) && (
         <button className="export_button" onClick={exportPDF}>
           Export as PDF
         </button>
