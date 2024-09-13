@@ -1,6 +1,7 @@
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
 //app.use("/", (req, res) => {
@@ -17,17 +18,14 @@ app.use(
 );
 */
 app.use(cors());
-HOST = "20.90.138.131"; //VM IP
-DATABASE = "ecms";
-USER = "TNandakumar";
-PASSWORD = "5ssbdFNsHzio90QpHR0B";
 
 // MySQL connection
 const db = mysql.createConnection({
-  host: HOST,
-  user: USER,
-  password: PASSWORD,
-  database: DATABASE,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT || 3306,
 });
 
 db.connect((err) => {
@@ -44,7 +42,7 @@ app.get("/", (re, res) => {
 
 app.post("/locs", (req, res) => {
   site = req.body.location || "Aldridge";
-  date = req.body.date || "2022-11-22";
+  date = req.body.date;
   console.log(date);
   const sql =
     "SELECT * FROM ecms.churchill_ecms_lvl_1a_sd20 WHERE Data_Date = '" +
