@@ -7,15 +7,15 @@ const app = express();
 //  res.send("Server is running.");
 //});
 app.use(express.json());
-
+/*
 app.use(
   cors({
-    origin: ["https://heat-pump-data-frontend.vercel.app/"],
-    methods: ["POST"],
+    origin: ["https://heat-pump-data-frontend.vercel.app"],
+    methods: ["GET", "POST"],
     credentials: true,
   })
 );
-
+*/
 app.use(cors());
 HOST = "20.90.138.131"; //VM IP
 DATABASE = "ecms";
@@ -42,7 +42,7 @@ app.get("/", (re, res) => {
   return res.json("From Backend Side");
 });
 
-app.post("/", (req, res) => {
+app.post("/locs", (req, res) => {
   site = req.body.location || "Aldridge";
   date = req.body.date || "2022-11-22";
   console.log(date);

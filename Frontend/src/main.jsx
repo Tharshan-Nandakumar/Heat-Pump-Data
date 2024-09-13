@@ -1,14 +1,10 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
-import { PublicClientApplication, EventType } from "@azure/msal-browser";
-import { msalConfig } from "./auth-config";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { AuthProvider } from "./Components/Auth/auth-provider.jsx";
 
-// MSAL should be instantiated outside of the component tree so doesn't happen on re-renders
-
-const msalInstance = new PublicClientApplication(msalConfig);
-
+/*
 // Default to using the first account if no account is active on page load
 if (
   !msalInstance.getActiveAccount() &&
@@ -25,9 +21,12 @@ msalInstance.addEventCallback((event) => {
     msalInstance.setActiveAccount(account);
   }
 });
+*/
 
-createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <App instance={msalInstance} />
-  </StrictMode>
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  </React.StrictMode>
 );

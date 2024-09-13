@@ -11,7 +11,7 @@ function Inputs() {
     setData(null);
     setError(null);
     axios
-      .post("https://heat-pump-data-backend.vercel.app", {
+      .post("http://localhost:8082/locs", {
         location,
         date,
       })
@@ -32,7 +32,7 @@ function Inputs() {
         );
       });
   }
-  //"http://localhost:8082/locs"
+  //"https://heat-pump-data-backend.vercel.app"
   const locations = [
     "Aldridge",
     "Ashtead",

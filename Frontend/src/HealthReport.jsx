@@ -171,7 +171,7 @@ const HealthReport = ({ location, date, data, error }) => {
     <div>
       {error && <p className="error">{error}</p>}
       {data === null && !error && <Spinner />}
-      {faultCodesArray.length !== 0 && !error && (
+      {faultCodesArray.length !== 0 && !error && data !== null && (
         <div id="heat_pump_data">
           <div className="table-heading">
             <h1 id="health_report">Health Report</h1>
