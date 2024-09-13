@@ -17,7 +17,7 @@ app.use(
   })
 );
 
-app.use(cors());
+//app.use(cors());
 
 // MySQL connection
 const db = mysql.createConnection({
@@ -34,10 +34,6 @@ db.connect((err) => {
     return;
   }
   console.log("Connected to the MySQL database");
-});
-
-app.get("/", (re, res) => {
-  return res.json("From Backend Side");
 });
 
 app.post("/locs", (req, res) => {
@@ -63,6 +59,12 @@ app.post("/locs", (req, res) => {
   });
 });
 
+app.get("/locs", (re, res) => {
+  return res.json(site);
+});
+
 app.listen(8082, () => {
   console.log("Listening");
 });
+
+//cors, redirect uri auth, axios post
