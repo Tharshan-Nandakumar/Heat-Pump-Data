@@ -63,7 +63,7 @@ app.get("/locs", (re, res) => {
   return res.json(site);
 });
 
-app.listen(8082, () => {
+app.listen(3306, () => {
   console.log("Listening");
 });
 
