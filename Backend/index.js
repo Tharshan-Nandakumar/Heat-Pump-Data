@@ -41,6 +41,7 @@ app.get("/", (re, res) => {
 });
 
 app.post("/locs", (req, res) => {
+  return res.json("From Backend ");
   site = req.body.location || "Aldridge";
   date = req.body.date;
   console.log(date);
