@@ -40,7 +40,7 @@ app.get("/", (re, res) => {
   return res.json("From Backend Side");
 });
 
-app.post("/locs", (req, res) => {
+app.get("/locs", (req, res) => {
   return res.json("From Backend ");
   site = req.body.location || "Aldridge";
   date = req.body.date;
