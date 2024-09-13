@@ -8,7 +8,7 @@ const app = express();
 //  res.send("Server is running.");
 //});
 app.use(express.json());
-/*
+
 app.use(
   cors({
     origin: ["https://heat-pump-data-frontend.vercel.app"],
@@ -16,7 +16,7 @@ app.use(
     credentials: true,
   })
 );
-*/
+
 app.use(cors());
 
 // MySQL connection
@@ -40,7 +40,7 @@ app.get("/", (re, res) => {
   return res.json("From Backend Side");
 });
 
-app.post("/locs", (req, res) => {
+app.post("/", (req, res) => {
   site = req.body.location || "Aldridge";
   date = req.body.date;
   console.log(date);
