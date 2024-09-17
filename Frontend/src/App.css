@@ -147,12 +147,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 #heat_pump_data th,
 #heat_pump_data td {
   /*padding: 12px 15px;*/
-  border: 1px solid #dddddd;
+  border: 1px solid #3b4049;
 }
 
 /* Table Row */
 #heat_pump_data tbody tr {
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #3b4049;
   color: #3b4049;
 }
 
