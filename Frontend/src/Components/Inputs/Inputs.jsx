@@ -11,7 +11,7 @@ function Inputs() {
     setData(null);
     setError(null);
     axios
-      .post("http://18.133.213.210:3306/locs", {
+      .post("http://localhost:3306/locs", {
         location,
         date,
       })
