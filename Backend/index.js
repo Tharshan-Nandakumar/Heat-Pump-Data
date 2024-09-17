@@ -27,7 +27,7 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME,
   port: process.env.DB_PORT || 3306,
 });
-/*
+
 db.connect((err) => {
   if (err) {
     console.error("Error connecting to the database:", err.stack);
@@ -35,12 +35,13 @@ db.connect((err) => {
   }
   console.log("Connected to the MySQL database");
 });
-*/
+
+app.get("/locs", (re, res) => {
+  return res.json("site");
+});
+
 app.post("/locs", (req, res) => {
   site = req.body.location || "Aldridge";
-  app.get("/locs", (re, res) => {
-    return res.json(site);
-  });
   date = req.body.date;
   console.log(date);
   const sql =
