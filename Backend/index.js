@@ -9,15 +9,15 @@ const app = express();
 //});
 app.use(express.json());
 
-app.use(
-  cors({
-    origin: ["https://heat-pump-data-frontend.vercel.app"],
-    methods: ["GET", "POST"],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: ["https://heat-pump-data-frontend.vercel.app"],
+//     methods: ["GET", "POST"],
+//     credentials: true,
+//   })
+// );
 
-//app.use(cors());
+app.use(cors());
 
 // MySQL connection
 const db = mysql.createConnection({
@@ -37,11 +37,11 @@ db.connect((err) => {
 });
 */
 
-app.get("/locs", (re, res) => {
+app.get("/", (re, res) => {
   return res.json("site");
 });
 
-app.post("https://heat-pump-data-backend.onrender.com/locs", (req, res) => {
+app.post("/locs", (req, res) => {
   site = req.body.location || "Aldridge";
   date = req.body.date;
   console.log(date);
