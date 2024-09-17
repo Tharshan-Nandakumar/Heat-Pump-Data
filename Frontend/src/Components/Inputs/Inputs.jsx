@@ -10,6 +10,7 @@ function Inputs() {
     e.preventDefault();
     setData(null);
     setError(null);
+    console.log(location);
     axios
       .post("https://heat-pump-data-backend.onrender.com/locs", {
         location,
@@ -17,7 +18,6 @@ function Inputs() {
       })
       .then((res) => {
         if (res.data.fatal !== true) {
-          console.log(location);
           console.log(res.data);
           setData(res.data);
         } else {
