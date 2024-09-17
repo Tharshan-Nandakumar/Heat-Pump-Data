@@ -9,15 +9,15 @@ const app = express();
 //});
 app.use(express.json());
 
-// app.use(
-//   cors({
-//     origin: ["https://heat-pump-data-frontend.vercel.app"],
-//     methods: ["GET", "POST"],
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: ["https://heat-pump-data-frontend.vercel.app"],
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
 
-app.use(cors());
+//app.use(cors());
 
 // MySQL connection
 const db = mysql.createConnection({
@@ -60,22 +60,22 @@ app.post("/locs", (req, res) => {
   // "';";
   console.log(site);
   console.log(site.replaceAll("_", " "));
-  return res.json(site);
+
   db.query(sql, (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
   });
 });
 
-// app.get("/locs", (re, res) => {
-//   db.connect((err) => {
-//     if (err) {
-//       console.error("Error connecting to the database:", err.stack);
-//       return res.json(err.stack);
-//     }
-//     console.log("Connected to the MySQL database");
-//   });
-// });
+app.get("/locs", (re, res) => {
+  db.connect((err) => {
+    if (err) {
+      console.error("Error connecting to the database:", err.stack);
+      return res.json(err.stack);
+    }
+    console.log("Connected to the MySQL database");
+  });
+});
 
 app.listen(3306, () => {
   console.log("Listening");
