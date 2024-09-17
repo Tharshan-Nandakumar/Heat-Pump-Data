@@ -11,7 +11,7 @@ function Inputs() {
     setData(null);
     setError(null);
     axios
-      .post("https://heat-pump-data-backend.vercel.app/locs", {
+      .post("http://18.133.213.210:3306/locs", {
         location,
         date,
       })
