@@ -61,6 +61,7 @@ app.post("https://heat-pump-data-backend.onrender.com/locs", (req, res) => {
   // "';";
   console.log(site);
   console.log(site.replaceAll("_", " "));
+  return res.json(site);
   // db.query(sql, (err, data) => {
   //   if (err) return res.json(err);
   //   return res.json(data);
