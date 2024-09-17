@@ -36,7 +36,12 @@ db.connect((err) => {
   console.log("Connected to the MySQL database");
 });
 */
-app.post("/locs", (req, res) => {
+
+app.get("/locs", (re, res) => {
+  return res.json("site");
+});
+
+app.post("https://heat-pump-data-backend.onrender.com/locs", (req, res) => {
   site = req.body.location || "Aldridge";
   date = req.body.date;
   console.log(date);
@@ -47,7 +52,7 @@ app.post("/locs", (req, res) => {
     site +
     "';";
   app.get("/locs", (re, res) => {
-    return res.json("site");
+    return res.json(site);
   });
   // "SELECT * FROM gshp.gshp_meter_data WHERE Date = '" +
   // date.replaceAll("-", "/") +
