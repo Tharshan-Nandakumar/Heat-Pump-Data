@@ -11,7 +11,7 @@ function Inputs() {
     setData(null);
     setError(null);
     axios
-      .post("http://localhost:3306/locs", {
+      .post("https://heat-pump-data-backend.onrender.com/locs", {
         location,
         date,
       })

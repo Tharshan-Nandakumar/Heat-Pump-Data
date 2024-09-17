@@ -9,15 +9,15 @@ const app = express();
 //});
 app.use(express.json());
 
-app.u; /*se(
+app.use(
   cors({
     origin: ["https://heat-pump-data-frontend.vercel.app"],
     methods: ["GET", "POST"],
     credentials: true,
   })
 );
-*/
-app.use(cors());
+
+//app.use(cors());
 
 // MySQL connection
 const db = mysql.createConnection({
@@ -36,10 +36,6 @@ db.connect((err) => {
   console.log("Connected to the MySQL database");
 });
 
-app.get("/locs", (re, res) => {
-  return res.json("site");
-});
-
 app.post("/locs", (req, res) => {
   site = req.body.location || "Aldridge";
   date = req.body.date;
@@ -50,6 +46,9 @@ app.post("/locs", (req, res) => {
     "' AND Site = '" +
     site +
     "';";
+  app.get("/locs", (re, res) => {
+    return res.json("site");
+  });
   // "SELECT * FROM gshp.gshp_meter_data WHERE Date = '" +
   // date.replaceAll("-", "/") +
   // "' AND  Site = '" +
