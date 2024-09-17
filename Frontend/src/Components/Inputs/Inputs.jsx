@@ -17,6 +17,7 @@ function Inputs() {
       })
       .then((res) => {
         if (res.data.fatal !== true) {
+          console.log(location);
           console.log(res.data);
           setData(res.data);
         } else {
