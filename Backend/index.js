@@ -60,6 +60,7 @@ app.post("/locs", (req, res) => {
 });
 
 app.get("/locs", (re, res) => {
+  return res.json(site);
   db.connect((err) => {
     if (err) {
       console.error("Error connecting to the database:", err.stack);
@@ -67,7 +68,6 @@ app.get("/locs", (re, res) => {
     }
     console.log("Connected to the MySQL database");
   });
-  return res.json(site);
 });
 
 app.listen(3306, () => {
