@@ -1,11 +1,11 @@
 //import Spinner from "./Components/Spinner/Spinner";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-import "./App.css";
+import "../../App.css";
 import logo from "./rendesco.png";
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
-import Spinner from "./Components/Spinner/Spinner";
+import Spinner from "../Spinner/Spinner";
 
 const HealthReport = ({ location, date, data, error }) => {
   const [faultCodesArray, setfaultCodesArray] = useState([]);
@@ -218,6 +218,7 @@ const HealthReport = ({ location, date, data, error }) => {
           </div>
         </div>
       )}
+
       {faultCodesArray.length !== 0 && !error && data !== null && (
         <button className="export_button" onClick={exportPDF}>
           Export as PDF

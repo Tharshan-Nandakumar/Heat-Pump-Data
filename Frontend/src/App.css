@@ -8,6 +8,38 @@
   padding: 0;
 }
 
+#live_data {
+  table-layout: auto;
+  border-collapse: collapse;
+  margin: 20px 0;
+  width: auto;
+}
+#live_data th,
+#live_data td {
+  border: 1px solid black;
+  padding: 10px;
+  text-align: center;
+  table-layout: auto;
+}
+
+#live_data th {
+  background-color: #1cb683;
+  color: #ffffff;
+  table-layout: auto;
+}
+
+/* Style for the icon */
+.icon-link {
+  color: #3b4049; /* Initial color */
+  text-decoration: none; /* Remove underline from the link */
+  transition: color 0.3s ease; /* Smooth color transition on hover */
+}
+
+/* Highlight the icon on hover */
+.icon-link:hover {
+  color: #1cb683; /* Change color on hover */
+}
+
 .error {
   font-size: 16px;
   margin-left: 10%;
