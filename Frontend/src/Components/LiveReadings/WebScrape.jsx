@@ -6,6 +6,7 @@ import * as cheerio from "cheerio";
 import PropTypes from "prop-types";
 import schematic from "./Schematic.png";
 import spiral from "./Spiral.gif";
+import Status from "./Status";
 
 const DHW_Links = {
   Aldridge:
@@ -31,7 +32,7 @@ const DHW_Links = {
   Carshalton:
     "http://engineer:TRDC2012@151.2.239.130:10001/http/index/j_operatingdata.html",
   Cheam:
-    "http://engineer:TRDC2012@164.39.129.41:10001/http/index/j_operatingdata.html",
+    "http://engineer:TRDC2012@164.39.129.41:10001/http/index/l_operatingdata.html",
   Cheltenham:
     "http://engineer:TRDC2012@164.39.192.226:10000/http/index/j_operatingdata.html",
   Chichester:
@@ -184,14 +185,14 @@ const HTG_Links = {
   Crowthorne:
     "http://engineer:TRDC2012@92.207.66.164:10001/http/index/j_operatingdata.html",
   Dartford:
-    "http://engineer:TRDC2012@164.39.226.242:10001/http/index/j_operatingdata.html",
-  Deal: "http://engineer:TRDC2012@51.219.232.202:10001/http/index/j_operatingdata.html",
+    "http://engineer:TRDC2012@164.39.226.242:10001/http/index/l_operatingdata.html",
+  Deal: "http://engineer:TRDC2012@51.219.232.202:10001/http/index/l_operatingdata.html",
   Dorking:
     "http://engineer:TRDC2012@51.52.35.57:10001/http/index/j_operatingdata.html",
   East_Grinstead:
     "http://engineer:TRDC2012@164.39.205.205:10001/http/index/j_operatingdata.html",
   Eastbourne:
-    "http://engineer:TRDC2012@138.248.138.209:10001/http/index/j_operatingdata.html",
+    "http://engineer:TRDC2012@138.248.138.209:10001/http/index/l_operatingdata.html",
   Eastleigh:
     "http://engineer:TRDC2012@157.231.195.16:10001/http/index/j_operatingdata.html",
   Eltham:
@@ -304,6 +305,15 @@ const WebScrape = ({ selectedLocation }) => {
   const [request_DHW, set_request_DHW] = useState(null);
   const [DHWrequest_HTG, set_DHWrequest_HTG] = useState(null);
   const [request_HTG, set_request_HTG] = useState(null);
+  const [HTG_set_T, set_HTG_set_T] = useState(null);
+  const [DHW_set_T_HTG, set_DHW_set_T_HTG] = useState(null);
+  const [DHW_set_T_DHW, set_DHW_set_T_DHW] = useState(null);
+  const [A103, setA103] = useState(null);
+  const [A104, setA104] = useState(null);
+  const [A106, setA106] = useState(null);
+  const [A103_HTG, setA103_HTG] = useState(null);
+  const [A104_HTG, setA104_HTG] = useState(null);
+  const [A106_HTG, setA106_HTG] = useState(null);
 
   //   const username = "engineer";
   //   const password = "TRDC2012";
@@ -311,7 +321,7 @@ const WebScrape = ({ selectedLocation }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setDHW_T("N/A");
+      setDHW_T("");
       set_Ext_T("");
       set_Flow_T("");
       set_Heating_T("");
@@ -329,10 +339,152 @@ const WebScrape = ({ selectedLocation }) => {
       set_HS_In_T_HTG("");
       set_High_P_HTG("");
       set_Low_P_HTG("");
+      set_DHW_set_T_HTG("");
+      set_DHW_set_T_DHW("");
+      set_HTG_set_T("");
+      setA103("");
+      setA104("");
+      setA106("");
+      setA103_HTG("");
+      setA104_HTG("");
+      setA106_HTG("");
 
       try {
         const response = await fetch(
-          `https://heat-pump-data-backend.onrender.com/api/proxy-data?location=${selectedLocation}`
+          `https://heat-pump-data-backend.onrender.com/api/proxy-data-start-page?location=${selectedLocation}` //https://heat-pump-data-backend.onrender.com/
+        ); // Fetch from your Express backend
+
+        //console.log(selectedLocation);
+        if (response.ok) {
+          const htmlText = await response.text();
+          const $ = cheerio.load(htmlText);
+          const scriptContent = $(
+            "body > div.weisserkasten > div > script"
+          ).html();
+          try {
+            if (scriptContent.match(/var A103 = ([\d.]+)/) !== null) {
+              setA103(scriptContent.match(/var A103 = ([\d.]+)/)[1]);
+              setA104(scriptContent.match(/var A104 = ([\d.]+)/)[1]);
+              setA106(scriptContent.match(/var A106 = ([\d.]+)/)[1]);
+              // console.log(scriptContent);
+              // console.log(
+              //   "A103 DHW " + scriptContent.match(/var A103 = ([\d.]+)/)[1]
+              // );
+              // console.log(
+              //   "A104 DHW " + scriptContent.match(/var A104 = ([\d.]+)/)[1]
+              // );
+              // console.log(
+              //   "A106 DHW " + scriptContent.match(/var A106 = ([\d.]+)/)[1]
+              // );
+            } else {
+              const scriptContent = $(
+                "#l_software > div > div > div > div > div > table > tbody > tr:nth-child(2) > td > div > font > strong > script:nth-child(1)"
+              ).html();
+              setA103(scriptContent.match(/var z_hswstatusL=([\d.]+)/)[1]);
+              // console.log(
+              //   "A103 DHW " +
+              //     scriptContent.match(/var z_hswstatusL=([\d.]+)/)[1]
+              // );
+              const script = $(
+                "#l_software > div > div > div > div > div > table > tbody > tr:nth-child(2) > td > div > font > strong > script:nth-child(3)"
+              ).html();
+              setA104(script.match(/var z_sp_wertL=([\d.]+)/)[1]);
+              // console.log(
+              //   "A104 DHW " + script.match(/var z_sp_wertL=([\d.]+)/)[1]
+              // );
+              const script2 = $(
+                "#frei_al_l > div > div > div > div > div > table > tbody > tr:nth-child(3) > td > div > font > strong > script"
+              ).html();
+              setA106(script2.match(/var z_statusL1=([\d.]+)/)[1]);
+              // console.log(
+              //   "A106 DHW " + script2.match(/var z_statusL1=([\d.]+)/)[1]
+              // );
+            }
+          } catch {
+            console.error(
+              "Failed to fetch the data from the server gggggggggggggggggggggg"
+            );
+            setA103("N/A");
+            setA104("N/A");
+            setA106("N/A");
+          }
+        } else {
+          setA103("N/A");
+          setA104("N/A");
+          setA106("N/A");
+        }
+      } catch (err) {
+        console.error(err);
+        setA103("N/A");
+        setA104("N/A");
+        setA106("N/A");
+      }
+
+      try {
+        const response = await fetch(
+          `https://heat-pump-data-backend.onrender.com/api/proxy-data-htg-start-page?location=${selectedLocation}` //https://heat-pump-data-backend.onrender.com/
+        ); // Fetch from your Express backend
+        // 104 3.4 2nd gen generator, A103 0.3 DHW
+        if (response.ok) {
+          const htmlText = await response.text();
+          const $ = cheerio.load(htmlText);
+          const scriptContent = $(
+            "body > div.weisserkasten > div > script"
+          ).html();
+          try {
+            if (scriptContent.match(/var A103 = ([\d.]+)/) !== null) {
+              setA103_HTG(scriptContent.match(/var A103 = ([\d.]+)/)[1]);
+              setA104_HTG(scriptContent.match(/var A104 = ([\d.]+)/)[1]);
+              setA106_HTG(scriptContent.match(/var A106 = ([\d.]+)/)[1]);
+              // console.log(
+              //   "A103 HTG " + scriptContent.match(/var A103 = ([\d.]+)/)[1]
+              // );
+              // console.log(
+              //   "A104 HTG " + scriptContent.match(/var A104 = ([\d.]+)/)[1]
+              // );
+              // console.log(
+              //   "A106 HTG " + scriptContent.match(/var A106 = ([\d.]+)/)[1]
+              // );
+            } else {
+              const scriptContent = $(
+                "#l_software > div > div > div > div > div > table > tbody > tr:nth-child(2) > td > div > font > strong > script:nth-child(1)"
+              ).html();
+              setA103_HTG(scriptContent.match(/var z_hswstatusL=([\d.]+)/)[1]);
+              // console.log(
+              //   "A103 HTG " +
+              //     scriptContent.match(/var z_hswstatusL=([\d.]+)/)[1]
+              // );
+              const script = $(
+                "#l_software > div > div > div > div > div > table > tbody > tr:nth-child(2) > td > div > font > strong > script:nth-child(3)"
+              ).html();
+              setA104_HTG(script.match(/var z_sp_wertL=([\d.]+)/)[1]);
+              // console.log(
+              //   "A104 HTG " + script.match(/var z_sp_wertL=([\d.]+)/)[1]
+              // );
+              const script2 = $(
+                "#frei_al_l > div > div > div > div > div > table > tbody > tr:nth-child(3) > td > div > font > strong > script"
+              ).html();
+              setA106_HTG(script2.match(/var z_statusL1=([\d.]+)/)[1]);
+              // console.log(
+              //   "A106 HTG " + script2.match(/var z_statusL1=([\d.]+)/)[1]
+              // );
+            }
+          } catch {
+            setA103_HTG("N/A");
+            setA104_HTG("N/A");
+          }
+        } else {
+          setA103_HTG("N/A");
+          setA104_HTG("N/A");
+          setA106_HTG("N/A");
+        }
+      } catch (err) {
+        console.error(err);
+      }
+
+      try {
+        const response = await fetch(
+          `https://heat-pump-data-backend.onrender.com/api/proxy-data?location=${selectedLocation}` ///http://localhost:3306
         ); // Fetch from your Express backend
 
         if (response.ok) {
@@ -549,21 +701,21 @@ const WebScrape = ({ selectedLocation }) => {
             index = scriptContent.indexOf("var A8");
             try {
               if (index !== -1) {
-                // Extract the high pressure sensor value
-                const High_P = scriptContent.substring(index + 9, index + 13);
-
-                set_High_P(High_P); // Update the state with the pressure
+                const HD = scriptContent.match(/var A8 = ([\d.]+).toFix/)[1];
+                const HDSensor = ((HD * 10 - 100) * 450) / 800 / 10;
+                const HDSensor1 = (Math.floor(HDSensor * 10) / 10).toFixed(1);
+                set_High_P(HDSensor1); // Update the state with the pressure
               } else {
                 //console.error('Unable to locate "var A8" in the script');
-                let x = $("#anz_hd_b8_pcol1");
+                let x = $("#anz_hd410a_b8_pcol1");
 
                 // Convert the element to a string
                 let J = x.html(); // This gets the inner HTML of the element as a string
 
                 // Locate the value in the string
                 index = J.indexOf('"right">');
-                const HD = parseFloat(J.substring(index + 25, index + 29));
-                const HDSensor = ((HD * 10 - 100) * 345) / 800 / 10;
+                const HD = parseFloat(J.match(/var HD = ([\d.]+)/)[1]);
+                const HDSensor = ((HD * 10 - 100) * 450) / 800 / 10;
                 const HDSensor1 = (Math.floor(HDSensor * 10) / 10).toFixed(1);
                 set_High_P(HDSensor1);
               }
@@ -571,29 +723,98 @@ const WebScrape = ({ selectedLocation }) => {
               set_High_P("N/A");
             }
 
-            index = scriptContent.indexOf("var A101");
+            index = scriptContent.indexOf("var A6");
             try {
               if (index !== -1) {
-                // Extract the low pressure sensor value
-                const Low_P = scriptContent.match(
-                  /var A101 = ([\d.]+).toFix/
-                )[1]; //
-                set_Low_P(Low_P); // Update the state with the pressure
+                const ND = scriptContent.match(/var A6 = ([\d.]+).toFix/)[1];
+                const NDSensor = ((ND * 10 - 100) * 345) / 800 / 10;
+                const NDSensor1 = (Math.floor(NDSensor * 10) / 10).toFixed(1);
+                set_Low_P(NDSensor1); // Update the state with the pressure
               } else {
-                //console.error('Unable to locate "var A101" in the script');
-                let x = $("#anz_EVD_Sh_Evap_Pres_A_pcol1");
+                //console.error('Unable to locate "var A8" in the script');
+                let x = $("#anz_nd410a_b6_pcol1");
 
                 // Convert the element to a string
                 let J = x.html(); // This gets the inner HTML of the element as a string
 
                 // Locate the value in the string
                 index = J.indexOf('"right">');
-
-                // Extract the hot water temperature (4 characters after '"right">' at 1 decimal place)
-                set_Low_P(J.match(/<td align="right">([\d.]+)<\/td>/)[1]);
+                const ND = parseFloat(J.match(/var ND = ([\d.]+)/)[1]);
+                const NDSensor = ((ND * 10 - 100) * 345) / 800 / 10;
+                const NDSensor1 = (Math.floor(NDSensor * 10) / 10).toFixed(1);
+                set_Low_P(NDSensor1);
               }
             } catch {
               set_Low_P("N/A");
+            }
+            // index = scriptContent.indexOf("var A101");
+            // try {
+            //   if (index !== -1) {
+            //     // Extract the low pressure sensor value
+            //     const Low_P = scriptContent.match(
+            //       /var A101 = ([\d.]+).toFix/
+            //     )[1]; //
+            //     set_Low_P(Low_P); // Update the state with the pressure
+            //   } else {
+            //     //console.error('Unable to locate "var A101" in the script');
+            //     let x = $("#anz_A6ratR410");
+
+            //     // Convert the element to a string
+            //     let J = x.html(); // This gets the inner HTML of the element as a string
+
+            //     // Locate the value in the string
+            //     index = J.indexOf('"right">');
+
+            //     // Extract the hot water temperature (4 characters after '"right">' at 1 decimal place)
+            //     set_Low_P(J.match(/<td align="right">([\d.]+)<\/td>/)[1]);
+            //   }
+            // } catch {
+            //   set_Low_P("N/A");
+            // }
+
+            let tableData = $(
+              "body > div.grauekaesten > div > div.zentral_unter > div.inhalt > div.produkt > div > div > div > div > div > table > tbody > tr:nth-child(34) > td:nth-child(2)"
+            );
+
+            try {
+              if (
+                tableData.text().trim() !== "0.0" &&
+                tableData.text().trim() !== "-999.9"
+              ) {
+                const extractedValue = tableData.text().trim();
+                set_DHW_set_T_HTG(extractedValue);
+              } else {
+                const tableData = $(
+                  "body > div.grauekaesten > div > div.zentral_unter > div.inhalt > div.produkt > div > div > div > div > div > table > tbody > tr:nth-child(21) > td:nth-child(2)"
+                );
+                set_DHW_set_T_HTG(tableData.text().trim());
+              }
+            } catch {
+              set_DHW_set_T_HTG("N/A");
+            }
+
+            index = scriptContent.indexOf("var A58");
+            try {
+              if (index !== -1) {
+                // Extract the high pressure sensor value
+                const DHW_set_T_DHW = scriptContent.match(
+                  /var A58 = ([\d.]+).toFix/
+                )[1];
+
+                set_DHW_set_T_DHW(DHW_set_T_DHW); // Update the state with the pressure
+              } else {
+                //console.error('Unable to locate "var A8" in the script');
+                let x = $("#anz_ww_soll");
+
+                // Convert the element to a string
+                let J = x.html(); // This gets the inner HTML of the element as a string
+
+                set_DHW_set_T_DHW(
+                  J.match(/<td align="right">([\d.]+)<\/td>/)[1]
+                );
+              }
+            } catch {
+              set_DHW_set_T_DHW("N/A");
             }
           }
         } else {
@@ -608,14 +829,16 @@ const WebScrape = ({ selectedLocation }) => {
           set_Low_P("N/A");
           set_request_DHW("N/A");
           set_DHWrequest_HTG("N/A");
+          set_DHW_set_T_DHW("N/A");
+          set_DHW_set_T_HTG("N/A");
         }
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
 
       try {
         const response = await fetch(
-          `https://heat-pump-data-backend.onrender.com/api/proxy-data-htg?location=${selectedLocation}`
+          `https://heat-pump-data-backend.onrender.com/api/proxy-data-htg?location=${selectedLocation}` //http://localhost:3306/
         ); // Fetch from your Express backend
 
         if (response.ok) {
@@ -694,53 +917,104 @@ const WebScrape = ({ selectedLocation }) => {
             }
 
             index = scriptContent.indexOf("var A8");
-            console.log("HP " + index);
+
             if (index !== -1) {
               // Extract the high pressure sensor value
-              const High_P_HTG = scriptContent.substring(index + 9, index + 13);
-              set_High_P_HTG(High_P_HTG); // Update the state with the pressure
+              const HD = scriptContent.match(/var A8 = ([\d.]+).toFix/)[1];
+              const HDSensor = ((HD * 10 - 100) * 450) / 800 / 10;
+              const HDSensor1 = (Math.floor(HDSensor * 10) / 10).toFixed(1);
+              set_High_P_HTG(HDSensor1); // Update the state with the pressure
             } else {
               //console.error('Unable to locate "var A8" in the script');
-              let x = $("#anz_hd_b8_pcol1");
+              let x = $("#anz_hd410a_b8_pcol1");
 
               // Convert the element to a string
               let J = x.html(); // This gets the inner HTML of the element as a string
 
               // Locate the value in the string
               index = J.indexOf('"right">');
-              const HD = parseFloat(J.substring(index + 25, index + 29));
-              const HDSensor = ((HD * 10 - 100) * 345) / 800 / 10;
+              const HD = parseFloat(J.match(/var HD = ([\d.]+)/)[1]);
+              const HDSensor = ((HD * 10 - 100) * 450) / 800 / 10;
               const HDSensor1 = (Math.floor(HDSensor * 10) / 10).toFixed(1);
               set_High_P_HTG(HDSensor1);
-            }
-
-            index = scriptContent.indexOf("var A101");
-            if (index !== -1) {
-              // Extract the low pressure sensor value
-              const Low_P_HTG = scriptContent.substring(index + 11, index + 15);
-              set_Low_P_HTG(Low_P_HTG); // Update the state with the pressure
-            } else {
-              //console.error('Unable to locate "var A101" in the script');
-              let x = $("#anz_EVD_Sh_Evap_Pres_A_pcol1");
-
-              // Convert the element to a string
-              let J = x.html(); // This gets the inner HTML of the element as a string
-
-              // Locate the value in the string
-              index = J.indexOf('"right">');
-
-              // Extract the hot water temperature (4 characters after '"right">' at 1 decimal place)
-              set_Low_P_HTG(J.match(/<td align="right">([\d.]+)<\/td>/)[1]);
             }
 
             index = scriptContent.indexOf("var A6");
             try {
               if (index !== -1) {
-                const HS_In_T_HTG = scriptContent.substring(
-                  index + 9,
-                  index + 13
-                );
-                set_HS_In_T_HTG(HS_In_T_HTG); // Update the state with the pressure
+                const ND = scriptContent.match(/var A6 = ([\d.]+).toFix/)[1];
+                const NDSensor = ((ND * 10 - 100) * 345) / 800 / 10;
+                const NDSensor1 = (Math.floor(NDSensor * 10) / 10).toFixed(1);
+                set_Low_P_HTG(NDSensor1); // Update the state with the pressure
+              } else {
+                //console.error('Unable to locate "var A8" in the script');
+                let x = $("#anz_nd410a_b6_pcol1");
+
+                // Convert the element to a string
+                let J = x.html(); // This gets the inner HTML of the element as a string
+
+                // Locate the value in the string
+                index = J.indexOf('"right">');
+                const ND = parseFloat(J.match(/var ND = ([\d.]+)/)[1]);
+                const NDSensor = ((ND * 10 - 100) * 345) / 800 / 10;
+                const NDSensor1 = (Math.floor(NDSensor * 10) / 10).toFixed(1);
+                set_Low_P_HTG(NDSensor1);
+              }
+            } catch {
+              set_Low_P_HTG("N/A");
+            }
+
+            // index = scriptContent.indexOf("var A101");
+            // try {
+            //   if (index !== -1) {
+            //     // Extract the low pressure sensor value
+            //     const Low_P_HTG = scriptContent.match(
+            //       /var A101 = ([\d.]+).toFix/
+            //     )[1]; //
+            //     set_Low_P_HTG(Low_P_HTG); // Update the state with the pressure
+            //   } else {
+            //     //console.error('Unable to locate "var A101" in the script');
+            //     let x = $("#anz_EVD_Sh_Evap_Pres_A_pcol1");
+
+            //     // Convert the element to a string
+            //     let J = x.html(); // This gets the inner HTML of the element as a string
+
+            //     // Locate the value in the string
+            //     index = J.indexOf('"right">');
+
+            //     // Extract the hot water temperature (4 characters after '"right">' at 1 decimal place)
+            //     set_Low_P_HTG(J.match(/<td align="right">([\d.]+)<\/td>/)[1]);
+            //   }
+            // } catch {
+            //   set_Low_P_HTG("N/A");
+            // }
+            // index = scriptContent.indexOf("var A101");
+            // if (index !== -1) {
+            //   // Extract the low pressure sensor value
+            //   const Low_P_HTG = scriptContent.substring(index + 11, index + 15);
+            //   set_Low_P_HTG(Low_P_HTG); // Update the state with the pressure
+            // } else {
+            //   //console.error('Unable to locate "var A101" in the script');
+            //   let x = $("#anz_EVD_Sh_Evap_Pres_A_pcol1");
+
+            //   // Convert the element to a string
+            //   let J = x.html(); // This gets the inner HTML of the element as a string
+
+            //   // Locate the value in the string
+            //   index = J.indexOf('"right">');
+
+            //   // Extract the hot water temperature (4 characters after '"right">' at 1 decimal place)
+            //   set_Low_P_HTG(J.match(/<td align="right">([\d.]+)<\/td>/)[1]);
+            // }
+
+            index = scriptContent.indexOf("var A6");
+            try {
+              if (index !== -1) {
+                // Extract the heat source outlet temperature
+                const HS_In_T_HTG = scriptContent.match(
+                  /var A6 = ([\d.]+).toFix/
+                )[1];
+                set_HS_In_T_HTG(HS_In_T_HTG);
               } else {
                 let x = $("#anz_nd_b6_wqe_pcol1");
 
@@ -754,28 +1028,54 @@ const WebScrape = ({ selectedLocation }) => {
               set_HS_In_T_HTG("N/A");
             }
 
-            //const scriptContent = $(scriptTag).html();
             index = scriptContent.indexOf("var A7");
-            if (index !== -1) {
-              // Extract the heat source outlet temperature
-              const HS_Out_T_HTG = scriptContent.substring(
-                index + 9,
-                index + 13
-              );
-              set_HS_Out_T_HTG(HS_Out_T_HTG); // Update the state with the temperature
-            } else {
-              //console.error('Unable to locate "var A7" in the script');
-              let x = $("#anz_nd_b7_wqa_pcol1");
+            try {
+              if (index !== -1) {
+                // Extract the heat source outlet temperature
+                const HS_Out_T_HTG = scriptContent.match(
+                  /var A7 = ([\d.]+).toFix/
+                )[1];
+                set_HS_Out_T_HTG(HS_Out_T_HTG); // Update the state with the temperature
+              } else {
+                //console.error('Unable to locate "var A7" in the script');
+                let x = $("#anz_nd_b7_wqa_pcol1");
 
-              // Convert the element to a string
-              let J = x.html(); // This gets the inner HTML of the element as a string
+                // Convert the element to a string
+                let J = x.html(); // This gets the inner HTML of the element as a string
 
-              // Locate the value in the string
-              index = J.indexOf('"right">');
+                // Locate the value in the string
+                index = J.indexOf('"right">');
 
-              // Extract the hot water temperature (4 characters after '"right">' at 1 decimal place)
-              set_HS_Out_T_HTG(J.match(/<td align="right">([\d.]+)<\/td>/)[1]);
+                // Extract the hot water temperature (4 characters after '"right">' at 1 decimal place)
+                set_HS_Out_T_HTG(
+                  J.match(/<td align="right">([\d.]+)<\/td>/)[1]
+                );
+              }
+            } catch {
+              set_HS_Out_T_HTG("N/A");
             }
+            //const scriptContent = $(scriptTag).html();
+
+            // if (index !== -1) {
+            //   // Extract the heat source outlet temperature
+            //   const HS_Out_T_HTG = scriptContent.substring(
+            //     index + 9,
+            //     index + 13
+            //   );
+            //   set_HS_Out_T_HTG(HS_Out_T_HTG); // Update the state with the temperature
+            // } else {
+            //   //console.error('Unable to locate "var A7" in the script');
+            //   let x = $("#anz_nd_b7_wqa_pcol1");
+
+            //   // Convert the element to a string
+            //   let J = x.html(); // This gets the inner HTML of the element as a string
+
+            //   // Locate the value in the string
+            //   index = J.indexOf('"right">');
+
+            //   // Extract the hot water temperature (4 characters after '"right">' at 1 decimal place)
+            //   set_HS_Out_T_HTG(J.match(/<td align="right">([\d.]+)<\/td>/)[1]);
+            // }
 
             index = scriptContent.indexOf("var D146");
             try {
@@ -799,6 +1099,26 @@ const WebScrape = ({ selectedLocation }) => {
             } catch {
               set_request_HTG("N/A");
             }
+
+            let tableData = $(
+              "body > div.grauekaesten > div > div.zentral_unter > div.inhalt > div.produkt > div > div > div > div > div > table > tbody > tr:nth-child(34) > td:nth-child(2)"
+            );
+            try {
+              if (
+                tableData.text().trim() !== "0.0" &&
+                tableData.text().trim() !== "-999.9"
+              ) {
+                const extractedValue = tableData.text().trim();
+                set_HTG_set_T(extractedValue);
+              } else {
+                const tableData = $(
+                  "body > div.grauekaesten > div > div.zentral_unter > div.inhalt > div.produkt > div > div > div > div > div > table > tbody > tr:nth-child(21) > td:nth-child(2)"
+                );
+                set_HTG_set_T(tableData.text().trim());
+              }
+            } catch {
+              set_HTG_set_T("N/A");
+            }
           }
         } else {
           console.error("Failed to fetch the data from the server");
@@ -810,9 +1130,10 @@ const WebScrape = ({ selectedLocation }) => {
           set_High_P_HTG("N/A");
           set_Low_P_HTG("N/A");
           set_request_HTG("N/A");
+          set_HTG_set_T("N/A");
         }
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
 
@@ -847,6 +1168,16 @@ const WebScrape = ({ selectedLocation }) => {
                 position: "absolute",
                 top: "49.7%",
                 left: "4.3%",
+                width: "2.5%",
+              }}
+            />
+            <img
+              src={spiral}
+              alt="HP Running"
+              style={{
+                position: "absolute",
+                top: "75.8%",
+                left: "20.2%",
                 width: "2.5%",
               }}
             />
@@ -910,6 +1241,154 @@ const WebScrape = ({ selectedLocation }) => {
             />
           </>
         )}
+        <table
+          id="live_data"
+          style={{
+            position: "absolute",
+            top: "59.5%", // Different position for another text
+            left: "74.2%",
+            color: "#3b4049",
+            fontSize: "0.8vw", // Text size scales with viewport width
+            fontWeight: "bold",
+          }}
+        >
+          <thead>
+            <tr>
+              <th>{selectedLocation.replace("_", " ")}</th>
+              <th>DHW</th>
+              <th>HTG</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>External Temp</td>
+              <td>{Ext_T} °C</td>
+              <td>{Ext_T_HTG}°C</td>
+            </tr>
+            <tr>
+              <td>Flow Temp</td>
+              <td>{Flow_T} °C</td>
+              <td>{Flow_T_HTG} °C</td>
+            </tr>
+            <tr>
+              <td>Heating Return Set Temp</td>
+              <td>{DHW_set_T_HTG} °C</td>
+              <td>{HTG_set_T} °C</td>
+            </tr>
+            <tr>
+              <td>Heating Return Temp</td>
+              <td>{Heating_T} °C</td>
+              <td>{Heating_T_HTG} °C</td>
+            </tr>
+            <tr>
+              <td>Hot Water Set Point</td>
+              <td>{DHW_set_T_DHW} °C</td>
+              <td>N/A</td>
+            </tr>
+            <tr>
+              <td>Hot Water Temp</td>
+              <td>{DHW_T} °C</td>
+              <td>N/A</td>
+            </tr>
+            <tr>
+              <td>Heat Source Inlet Temp</td>
+              <td>{HS_In_T} °C</td>
+              <td>{HS_In_T_HTG} °C</td>
+            </tr>
+            <tr>
+              <td>Heat Source Outlet Temp</td>
+              <td>{HS_Out_T} °C</td>
+              <td>{HS_Out_T_HTG} °C</td>
+            </tr>
+            <tr>
+              <td>High Pressure Sensor</td>
+              <td>{High_P} bar</td>
+              <td>{High_P_HTG} bar</td>
+            </tr>
+            <tr>
+              <td>Low Pressure Sensor</td>
+              <td>{Low_P} bar</td>
+              <td>{Low_P_HTG} bar</td>
+            </tr>
+            <tr>
+              <td>Heating Request</td>
+              <td>
+                {DHWrequest_HTG == ""
+                  ? ""
+                  : DHWrequest_HTG == "N/A"
+                  ? "N/A"
+                  : DHWrequest_HTG == "1"
+                  ? "Yes"
+                  : "No"}
+              </td>
+              <td>
+                {request_HTG == ""
+                  ? ""
+                  : request_HTG == "N/A"
+                  ? "N/A"
+                  : request_HTG == "1"
+                  ? "Yes"
+                  : "No"}
+              </td>
+            </tr>
+            <tr>
+              <td>DHW Request</td>
+              <td>
+                {request_DHW == ""
+                  ? ""
+                  : request_DHW == "N/A"
+                  ? "N/A"
+                  : request_DHW == "1"
+                  ? "Yes"
+                  : "No"}
+              </td>
+              <td>N/A</td>
+            </tr>
+            <tr>
+              <td>Status</td>
+              <Status
+                A103={A103}
+                A104={A104}
+                A106={A106}
+                A103_HTG={A103_HTG}
+                A104_HTG={A104_HTG}
+                A106_HTG={A106_HTG}
+              />
+            </tr>
+          </tbody>
+        </table>
+        <table
+          id="status"
+          style={{
+            position: "absolute",
+            top: "2.5%", // Different position for another text
+            left: "34.5%",
+            color: "#3b4049",
+            fontSize: "0.8vw", // Text size scales with viewport width
+            fontWeight: "bold",
+          }}
+        >
+          <thead>
+            <tr>
+              <th>DHW</th>
+              <th>HTG</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <Status
+                A103={A103}
+                A104={A104}
+                A106={A106}
+                A103_HTG={A103_HTG}
+                A104_HTG={A104_HTG}
+                A106_HTG={A106_HTG}
+                show={"Yes"}
+              />
+            </tr>
+          </tbody>
+        </table>
+
         <p
           style={{
             position: "absolute",
@@ -925,7 +1404,7 @@ const WebScrape = ({ selectedLocation }) => {
         <p
           style={{
             position: "absolute",
-            top: "5.5%", // Different position for another text
+            top: "15.5%", // Different position for another text
             left: "42%",
             color: "#3b4049",
             fontSize: "0.8vw", // Text size scales with viewport width
@@ -937,7 +1416,7 @@ const WebScrape = ({ selectedLocation }) => {
         <p
           style={{
             position: "absolute",
-            top: "7%", // Different position for another text
+            top: "17%", // Different position for another text
             left: "42.2%",
             color: "#3b4049",
             fontSize: "0.8vw", // Text size scales with viewport width
@@ -1021,10 +1500,10 @@ const WebScrape = ({ selectedLocation }) => {
         <p
           style={{
             position: "absolute",
-            top: "36.8%", // Different position for another text
-            left: "19.5%",
+            top: "35.8%", // Different position for another text
+            left: "15.3%",
             color: "#3b4049",
-            fontSize: "0.8vw", // Text size scales with viewport width
+            fontSize: "0.7vw", // Text size scales with viewport width
             fontWeight: "bold",
           }}
         >
@@ -1033,14 +1512,50 @@ const WebScrape = ({ selectedLocation }) => {
         <p
           style={{
             position: "absolute",
-            top: "38.6%", // Different position for another text
+            top: "35.8%", // Different position for another text
             left: "19.5%",
             color: "#3b4049",
-            fontSize: "0.8vw", // Text size scales with viewport width
+            fontSize: "0.7vw", // Text size scales with viewport width
+            fontWeight: "bold",
+          }}
+        >
+          Set: {DHW_set_T_HTG}°C (DHW)
+        </p>
+        <p
+          style={{
+            position: "absolute",
+            top: "39.2%", // Different position for another text
+            left: "15.3%",
+            color: "#3b4049",
+            fontSize: "0.7vw", // Text size scales with viewport width
             fontWeight: "bold",
           }}
         >
           {Heating_T_HTG}°C
+        </p>
+        <p
+          style={{
+            position: "absolute",
+            top: "39.2%", // Different position for another text
+            left: "19.5%",
+            color: "#3b4049",
+            fontSize: "0.7vw", // Text size scales with viewport width
+            fontWeight: "bold",
+          }}
+        >
+          Set: {HTG_set_T}°C (HTG)
+        </p>
+        <p
+          style={{
+            position: "absolute",
+            top: "38%", // Different position for another text
+            left: "67%",
+            color: "#3b4049",
+            fontSize: "0.7vw", // Text size scales with viewport width
+            fontWeight: "bold",
+          }}
+        >
+          Set: {DHW_set_T_DHW}°C
         </p>
         <p
           style={{

@@ -166,7 +166,7 @@ const HealthReport = ({ location, date, data, error }) => {
       pdf.save(`${location}_${date}_Fault_Codes.pdf`); // The name of the file you want to save
     });
   };
-  console.log(error);
+  //console.log(error);
   return (
     <div>
       {error && <p className="error">{error}</p>}
@@ -236,36 +236,3 @@ HealthReport.propTypes = {
 };
 
 export default HealthReport;
-
-/*
-          <table id="heat_pump_data">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Electricity</th>
-                <th>Flow Temp</th>
-                <th>Heat</th>
-                <th>Return Temp</th>
-                <th>Site</th>
-                <th>Time</th>
-                <th>Type</th>
-                <th>Volume Flow</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((d, i) => (
-                <tr key={i}>
-                  <td>{d.Date}</td>
-                  <td>{d.Electricity}</td>
-                  <td>{d.Flow_Temperature}</td>
-                  <td>{d.Heat}</td>
-                  <td>{d.Return_Temperature}</td>
-                  <td>{d.Site}</td>
-                  <td>{d.Time}</td>
-                  <td>{d.Type}</td>
-                  <td>{d.Volume_Flow}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          */

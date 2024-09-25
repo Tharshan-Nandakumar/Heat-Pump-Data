@@ -9,23 +9,48 @@
 }
 
 #live_data {
-  table-layout: auto;
-  border-collapse: collapse;
-  margin: 20px 0;
-  width: auto;
-}
-#live_data th,
-#live_data td {
-  border: 1px solid black;
-  padding: 10px;
-  text-align: center;
-  table-layout: auto;
+  margin: 1%;
+  width: 24.8%;
+  color: #3b4049;
+  max-width: 26%;
 }
 
+#status {
+  width: 30%;
+}
+
+#live_data td {
+  border: 1px solid #3b4049;
+  padding: 1% 1%;
+  text-align: center;
+  font-size: 0.85em;
+  width: max-content;
+  color: #3b4049;
+}
+
+#status td {
+  border: 1px solid #3b4049;
+  padding: 0% 0%;
+  text-align: center;
+  font-size: 1.1em;
+}
+#status th {
+  text-align: center;
+  border: 1px solid #3b4049;
+  padding: 0% 0%;
+  font-size: 1.2em;
+}
 #live_data th {
+  border: 1px solid #3b4049;
+  text-align: center;
+  font-size: 1em;
+  padding: 0.5% 0%;
+}
+
+#live_data th,
+#status th {
   background-color: #1cb683;
   color: #ffffff;
-  table-layout: auto;
 }
 
 /* Style for the icon */
@@ -152,6 +177,7 @@ button {
   border: 1px solid black;
   width: 100%;
   margin: 10px 0;
+  margin-bottom: 2%;
 }
 
 .input-container input {

@@ -16,7 +16,7 @@ const locationUrls = {
   Bridport: "http://151.2.190.42:10000/http/index/j_operatingdata.html",
   Burnham: "http://157.231.60.231:10000/http/index/j_operatingdata.html",
   Carshalton: "http://151.2.239.130:10001/http/index/j_operatingdata.html",
-  Cheam: "http://164.39.129.41:10001/http/index/j_operatingdata.html",
+  Cheam: "http://164.39.129.41:10001/http/index/l_operatingdata.html",
   Cheltenham: "http://164.39.192.226:10000/http/index/j_operatingdata.html",
   Chichester: "http://157.231.58.139:10001/http/index/l_operatingdata.html",
   Chippenham: "http://51.52.37.39:10000/http/index/j_operatingdata.html",
@@ -96,11 +96,11 @@ const locationUrlsHTG = {
   Cirencester: "http://51.52.37.205:10001/http/index/j_operatingdata.html",
   Cowbridge: "http://92.207.67.127:10000/http/index/j_operatingdata.html",
   Crowthorne: "http://92.207.66.164:10001/http/index/j_operatingdata.html",
-  Dartford: "http://164.39.226.242:10001/http/index/j_operatingdata.html",
-  Deal: "http://51.219.232.202:10001/http/index/j_operatingdata.html",
+  Dartford: "http://164.39.226.242:10001/http/index/l_operatingdata.html",
+  Deal: "http://51.219.232.202:10001/http/index/l_operatingdata.html",
   Dorking: "http://51.52.35.57:10001/http/index/j_operatingdata.html",
   East_Grinstead: "http://164.39.205.205:10001/http/index/j_operatingdata.html",
-  Eastbourne: "http://138.248.138.209:10001/http/index/j_operatingdata.html",
+  Eastbourne: "http://138.248.138.209:10001/http/index/l_operatingdata.html",
   Eastleigh: "http://157.231.195.16:10001/http/index/j_operatingdata.html",
   Eltham: "http://138.248.171.194:10001/http/index/j_operatingdata.html",
   Frinton: "http://178.211.198.25:10000/http/index/j_operatingdata.html",
@@ -226,6 +226,7 @@ app.get("/api/proxy-data", async (req, res) => {
   const password = "TRDC2012";
   const { location } = req.query;
   const URL = locationUrls[location];
+
   if (!URL) {
     return res.status(400).send("Invalid location");
   }
@@ -253,14 +254,83 @@ app.get("/api/proxy-data", async (req, res) => {
   }
 });
 
+app.get("/api/proxy-data-start-page", async (req, res) => {
+  const username = "engineer";
+  const password = "TRDC2012";
+  const { location } = req.query;
+  const URL = locationUrls[location];
+  let URL_start = URL.replace("l_operatingdata", "j_index");
+  URL_start = URL_start.replace("operatingdata", "index");
+  //console.log(URL_start);
+  if (!URL_start) {
+    return res.status(400).send("Invalid location");
+  }
+  //const URL_start = "http://151.2.207.146:10001/http/index/j_operatingdata.htmlhttp/index/j_operatingdata.html";
+
+  try {
+    const credentials = Buffer.from(`${username}:${password}`).toString(
+      "base64"
+    );
+    const response = await fetch(URL_start, {
+      headers: {
+        Authorization: `Basic ${credentials}`,
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.text(); // Get HTML content from the external server
+      res.send(data); // Send the HTML data back to the frontend
+    } else {
+      res.status(response.status).send("Failed to fetch data");
+    }
+  } catch (error) {
+    console.error("Error fetching data from external server:", error);
+    res.status(500).send("Server error");
+  }
+});
+
+app.get("/api/proxy-data-htg-start-page", async (req, res) => {
+  const username = "engineer";
+  const password = "TRDC2012";
+  const { location } = req.query;
+  const URL = locationUrlsHTG[location];
+  let URL_start_HTG = URL.replace("l_operatingdata", "j_index");
+  URL_start_HTG = URL_start_HTG.replace("operatingdata", "index");
+  //console.log(URL_start_HTG);
+  if (!URL_start_HTG) {
+    return res.status(400).send("Invalid location");
+  }
+  //const URL_start_HTG = "http://151.2.207.146:10001/http/index/j_operatingdata.htmlhttp/index/j_operatingdata.html";
+
+  try {
+    const credentials = Buffer.from(`${username}:${password}`).toString(
+      "base64"
+    );
+    const response = await fetch(URL_start_HTG, {
+      headers: {
+        Authorization: `Basic ${credentials}`,
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.text(); // Get HTML content from the external server
+      res.send(data); // Send the HTML data back to the frontend
+    } else {
+      res.status(response.status).send("Failed to fetch data");
+    }
+  } catch (error) {
+    console.error("Error fetching data from external server:", error);
+    res.status(500).send("Server error");
+  }
+});
+
 // New route to proxy the request to the DHW URL
 app.get("/api/proxy-data-htg", async (req, res) => {
   const username = "engineer";
   const password = "TRDC2012";
   const { location } = req.query;
   const URL = locationUrlsHTG[location];
-  console.log(location);
-  console.log(URL);
+  //console.log(URL);
   if (!URL) {
     return res.status(400).send("Invalid location");
   }
