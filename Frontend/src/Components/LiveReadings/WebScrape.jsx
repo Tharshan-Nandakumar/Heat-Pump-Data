@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import schematic from "./Schematic.png";
 import spiral from "./Spiral.gif";
 import Status from "./Status";
+import InfoIcon from "../InfoIcons/Icons";
 
 const DHW_Links = {
   Aldridge:
@@ -351,7 +352,7 @@ const WebScrape = ({ selectedLocation }) => {
 
       try {
         const response = await fetch(
-          `https://heat-pump-data-backend.onrender.com/api/proxy-data-start-page?location=${selectedLocation}` //https://heat-pump-data-backend.onrender.com/
+          `https://heat-pump-data-backend.onrender.com/api/proxy-data-start-page?location=${selectedLocation}` //http://localhost:3306/
         ); // Fetch from your Express backend
 
         //console.log(selectedLocation);
@@ -484,7 +485,7 @@ const WebScrape = ({ selectedLocation }) => {
 
       try {
         const response = await fetch(
-          `https://heat-pump-data-backend.onrender.com/api/proxy-data?location=${selectedLocation}` ///http://localhost:3306
+          `https://heat-pump-data-backend.onrender.com/api/proxy-data?location=${selectedLocation}` ///https://heat-pump-data-backend.onrender.com
         ); // Fetch from your Express backend
 
         if (response.ok) {
@@ -1473,6 +1474,7 @@ const WebScrape = ({ selectedLocation }) => {
         >
           {HS_Out_T_HTG}°C
         </p>
+        <InfoIcon />
         <p
           style={{
             position: "absolute",
