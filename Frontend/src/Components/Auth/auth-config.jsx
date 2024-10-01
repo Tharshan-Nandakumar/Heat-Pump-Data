@@ -16,7 +16,7 @@ export const msalConfig = {
     clientId: "0e99117b-b153-489a-8054-acf350be9ef1", // This is the ONLY mandatory field that you need to supply.
     authority:
       "https://login.microsoftonline.com/e68bde71-5fbd-4e79-ab99-9f87823bc2f2/", // Replace the placeholder with your tenant subdomain
-    redirectUri: "https://heat-pump-data-frontend.vercel.app/", //"http://localhost:5173/", //", // // Points to window.location.origin. You must register this URI on Microsoft Entra admin center/App Registration.
+    redirectUri: "https://heat-pump-data-frontend.vercel.app/", //http://localhost:5173/// Points to window.location.origin. You must register this URI on Microsoft Entra admin center/App Registration.
     postLogoutRedirectUri: "/", // Indicates the page to navigate after logout.
     navigateToLoginRequestUrl: false, // If "true", will navigate back to the original request location before processing the auth code response.
   },

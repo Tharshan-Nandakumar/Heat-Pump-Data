@@ -17,6 +17,7 @@ const locationUrls = {
   Burnham: "http://157.231.60.231:10000/http/index/j_operatingdata.html",
   Carshalton: "http://151.2.239.130:10001/http/index/j_operatingdata.html",
   Cheam: "http://164.39.129.41:10001/http/index/l_operatingdata.html",
+  Chelmsford: "http://91.85.222.175:10001/http/index/j_operatingdata.html",
   Cheltenham: "http://164.39.192.226:10000/http/index/j_operatingdata.html",
   Chichester: "http://157.231.58.139:10001/http/index/l_operatingdata.html",
   Chippenham: "http://51.52.37.39:10000/http/index/j_operatingdata.html",
@@ -26,6 +27,7 @@ const locationUrls = {
   Dartford: "http://164.39.226.242:10000/http/index/j_operatingdata.html",
   Deal: "http://51.219.232.202:10000/http/index/j_operatingdata.html",
   Dorking: "http://51.52.35.57:10000/http/index/j_operatingdata.html",
+  Drayton: "http://178.237.118.219:10000/http/index/j_operatingdata.html",
   East_Grinstead: "http://164.39.205.205:10000/http/index/j_operatingdata.html",
   Eastbourne: "http://138.248.138.209:10000/http/index/j_operatingdata.html",
   Eastleigh: "http://157.231.195.16:10000/http/index/j_operatingdata.html",
@@ -90,6 +92,7 @@ const locationUrlsHTG = {
   Burnham: "http://157.231.60.231:10001/http/index/j_operatingdata.html",
   Carshalton: "http://151.2.239.130:10000/http/index/j_operatingdata.html",
   Cheam: "http://164.39.129.41:10000/http/index/j_operatingdata.html",
+  Chelmsford: "http://91.85.222.175:10000/http/index/j_operatingdata.html",
   Cheltenham: "http://164.39.192.226:10001/http/index/j_operatingdata.html",
   Chichester: "http://157.231.58.139:10000/http/index/l_operatingdata.html",
   Chippenham: "http://51.52.37.39:10001/http/index/j_operatingdata.html",
@@ -99,6 +102,7 @@ const locationUrlsHTG = {
   Dartford: "http://164.39.226.242:10001/http/index/l_operatingdata.html",
   Deal: "http://51.219.232.202:10001/http/index/l_operatingdata.html",
   Dorking: "http://51.52.35.57:10001/http/index/j_operatingdata.html",
+  Drayton: "http://178.237.118.219:10001/http/index/j_operatingdata.html",
   East_Grinstead: "http://164.39.205.205:10001/http/index/j_operatingdata.html",
   Eastbourne: "http://138.248.138.209:10001/http/index/l_operatingdata.html",
   Eastleigh: "http://157.231.195.16:10001/http/index/j_operatingdata.html",
@@ -149,6 +153,22 @@ const locationUrlsHTG = {
   Yate: "http://92.207.108.252:10001/http/index/j_operatingdata.html",
 };
 
+const combinedUrls = {};
+
+// Iterate over the keys of locationUrls
+for (const location in locationUrls) {
+  // Combine the URLs from both objects
+  combinedUrls[location] = {
+    DHWLink: locationUrls[location]
+      .replace("l_operatingdata", "j_index")
+      .replace("operatingdata", "index"),
+    HTGLink: locationUrlsHTG[location]
+      .replace("l_operatingdata", "j_index")
+      .replace("operatingdata", "index"),
+  };
+}
+
+console.log(combinedUrls);
 const app = express();
 //app.use("/", (req, res) => {
 //  res.send("Server is running.");
@@ -157,7 +177,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["https://heat-pump-data-frontend.vercel.app"], //http://localhost:5173
+    origin: ["https://heat-pump-data-frontend.vercel.app"], // http://localhost:5173
     methods: ["GET", "POST"],
     credentials: true,
   })

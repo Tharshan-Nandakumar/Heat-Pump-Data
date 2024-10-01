@@ -1,6 +1,5 @@
-import React from "react";
 import { useMsal } from "@azure/msal-react";
-//import { loginRequest } from "../auth-config";
+import { loginRequest } from "../auth-config";
 
 const Login = () => {
   const { instance } = useMsal();

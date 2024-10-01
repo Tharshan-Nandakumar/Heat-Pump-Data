@@ -2,7 +2,7 @@
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import "../../App.css";
-import logo from "./rendesco.png";
+import logo from "../Images/Rendesco.png";
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import Spinner from "../Spinner/Spinner";

@@ -1,6 +1,58 @@
 import PropTypes from "prop-types";
 
-const Status = ({ A103, A104, A106, A103_HTG, A104_HTG, A106_HTG, show }) => {
+const Status = ({
+  A103,
+  A104,
+  A105,
+  A106,
+  A103_HTG,
+  A104_HTG,
+  A105_HTG,
+  A106_HTG,
+  show,
+}) => {
+  function translate_fault_line_1(A105) {
+    return A105 == "0.1"
+      ? "N171"
+      : A105 == "0.2"
+      ? "N172"
+      : A105 == "0.3"
+      ? "N173"
+      : A105 == "0.4"
+      ? "N174"
+      : A105 == "0.6"
+      ? "EvD"
+      : A105 == "0.7"
+      ? "SmartRTC"
+      : A105 == "1.5"
+      ? "Sensor"
+      : A105 == "1.6"
+      ? "Low Pressure Brine"
+      : A105 == "1.9"
+      ? "Primary Circuit"
+      : A105 == "2.1"
+      ? "Low Pressure Brine"
+      : A105 == "2.2"
+      ? "Hot Water"
+      : A105 == "2.3"
+      ? "Compressor Load"
+      : A105 == "2.4"
+      ? "Coding"
+      : A105 == "2.5"
+      ? "Low Pressure"
+      : A105 == "2.6"
+      ? "Frost Protection"
+      : A105 == "2.8"
+      ? "High Pressure"
+      : A105 == "2.9"
+      ? "Temperature Difference"
+      : A105 == "3.0"
+      ? "High Temperature Thermostat"
+      : A105 == "3.1"
+      ? "Flow"
+      : "";
+  }
+
   return (
     <>
       {A103 !== "3.0" && (
@@ -133,7 +185,7 @@ const Status = ({ A103, A104, A106, A103_HTG, A104_HTG, A106_HTG, show }) => {
             : A106 == "1.2"
             ? "Well Entry"
             : A106 == "1.3"
-            ? ""
+            ? translate_fault_line_1(A105)
             : A106 == "1.4"
             ? "Collector Sensor"
             : A106 == "1.5"
@@ -296,7 +348,7 @@ const Status = ({ A103, A104, A106, A103_HTG, A104_HTG, A106_HTG, show }) => {
             : A106_HTG == "1.2"
             ? "Well Entry"
             : A106_HTG == "1.3"
-            ? ""
+            ? translate_fault_line_1(A105_HTG)
             : A106_HTG == "1.4"
             ? "Collector Sensor"
             : A106_HTG == "1.5"
@@ -337,9 +389,11 @@ const Status = ({ A103, A104, A106, A103_HTG, A104_HTG, A106_HTG, show }) => {
 Status.propTypes = {
   A103: PropTypes.string,
   A104: PropTypes.string,
+  A105: PropTypes.string,
   A106: PropTypes.string,
   A103_HTG: PropTypes.string,
   A104_HTG: PropTypes.string,
+  A105_HTG: PropTypes.string,
   A106_HTG: PropTypes.string,
   show: PropTypes.string,
 };
