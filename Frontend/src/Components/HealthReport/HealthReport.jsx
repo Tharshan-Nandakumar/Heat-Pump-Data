@@ -2,7 +2,7 @@
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import "../../App.css";
-import logo from "../Images/Rendesco.png";
+import Rendesco from "../Images/Rendesco.png";
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import Spinner from "../Spinner/Spinner";
@@ -175,7 +175,7 @@ const HealthReport = ({ location, date, data, error }) => {
         <div id="heat_pump_data">
           <div className="table-heading">
             <h1 id="health_report">Health Report</h1>
-            <img id="logo" src={logo} alt="Rendesco logo" />
+            <img id="logo" src={Rendesco} alt="Rendesco logo" />
           </div>
           <div className="data">
             <h4>
