@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import schematic from "../Images/schematic.png";
+import schematic from "../Images/Schematic.png";
 import DHW_Data from "./Data/DHW_Data/DHW_Data_Fetch";
 import DHW_Data_Render from "./Data/DHW_Data/DHW_Data_Render";
 import DHW_Status_Data from "./Data/DHW_Data/DHW_Status_Data";
