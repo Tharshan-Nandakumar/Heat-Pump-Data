@@ -168,7 +168,7 @@ for (const location in locationUrls) {
   };
 }
 
-console.log(combinedUrls);
+//console.log(combinedUrls);
 const app = express();
 //app.use("/", (req, res) => {
 //  res.send("Server is running.");
