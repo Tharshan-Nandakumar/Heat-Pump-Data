@@ -1,4 +1,4 @@
-import spiral from "../../../Images/spiral.gif";
+import Spiral from "../../../Images/Spiral.gif";
 import PropTypes from "prop-types";
 
 const DHW_Data_Render = ({
@@ -20,7 +20,7 @@ const DHW_Data_Render = ({
       {DHWrequest_HTG == "1" && (
         <>
           <img
-            src={spiral}
+            src={Spiral}
             alt="HP Running"
             style={{
               position: "absolute",
@@ -30,7 +30,7 @@ const DHW_Data_Render = ({
             }}
           />
           <img
-            src={spiral}
+            src={Spiral}
             alt="HP Running"
             style={{
               position: "absolute",
@@ -44,7 +44,7 @@ const DHW_Data_Render = ({
       {request_DHW == "1" && (
         <>
           <img
-            src={spiral}
+            src={Spiral}
             alt="HP Running"
             style={{
               position: "absolute",
@@ -54,7 +54,7 @@ const DHW_Data_Render = ({
             }}
           />
           <img
-            src={spiral}
+            src={Spiral}
             alt="HP Running"
             style={{
               position: "absolute",
@@ -64,7 +64,7 @@ const DHW_Data_Render = ({
             }}
           />
           <img
-            src={spiral}
+            src={Spiral}
             alt="HP Running"
             style={{
               position: "absolute",
