@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import schematic from "../Images/Schematic.png";
+import Schematic from "../Images/Schematic.png";
 import DHW_Data from "./Data/DHW_Data/DHW_Data_Fetch";
 import DHW_Data_Render from "./Data/DHW_Data/DHW_Data_Render";
 import DHW_Status_Data from "./Data/DHW_Data/DHW_Status_Data";
@@ -48,7 +48,7 @@ const WebScrape = ({ selectedLocation }) => {
         }}
       >
         <img
-          src={schematic}
+          src={Schematic}
           alt="Plant Room Schematic"
           style={{ width: "100%", height: "auto", margin: "1% auto" }}
         />
