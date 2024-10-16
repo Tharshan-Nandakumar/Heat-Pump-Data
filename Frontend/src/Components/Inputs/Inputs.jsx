@@ -18,7 +18,7 @@ function Inputs() {
     //console.log(Date);
     axios
       .post(
-        "https://heat-pump-data-backend.onrender.com/locs" /*http://localhost:3306/locs"*/,
+        "https://heat-pump-data-backend.onrender.com/locs" /* http://localhost:3306/locs"*/,
         {
           location: e.target.elements.location.value,
           date: e.target.elements.date.value,
@@ -141,6 +141,7 @@ function Inputs() {
             </select>
           </div>
           <div className="input-container">
+            <WebScrape selectedLocation={selectedLocation} />
             <h4>
               <label htmlFor="date">Choose a date:</label>
             </h4>
@@ -152,7 +153,6 @@ function Inputs() {
               //onChange={(e) => setDate(e.target.value)}
               required
             />
-            <WebScrape selectedLocation={selectedLocation} />
             <button className="button" type="submit">
               Generate PDF
             </button>

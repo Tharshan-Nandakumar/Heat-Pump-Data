@@ -33,7 +33,7 @@ const DHW_Data = (selectedLocation) => {
 
       try {
         const response = await fetch(
-          `https://heat-pump-data-backend.onrender.com/api/proxy-data?location=${selectedLocation}` ///http://localhost:3306
+          `https://heat-pump-data-backend.onrender.com/api/proxy-data?location=${selectedLocation}` /// http://localhost:3306
         ); // Fetch from your Express backend
 
         if (response.ok) {
