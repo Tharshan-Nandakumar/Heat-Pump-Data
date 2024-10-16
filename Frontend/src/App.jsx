@@ -73,7 +73,7 @@ function App() {
     instance
       .loginRedirect({
         ...loginRequest,
-        prompt: "create",
+        prompt: "select_account",
       })
       .catch((error) => console.log(error));
   };
@@ -82,7 +82,7 @@ function App() {
     instance.logoutRedirect({
       postLogoutRedirectUri: "/",
     });
-    window.location.reload();
+    //window.location.reload();
   };
 
   return (
