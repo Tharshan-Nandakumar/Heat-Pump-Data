@@ -82,7 +82,7 @@ function App() {
     instance.logoutRedirect({
       postLogoutRedirectUri: "/",
     });
-    //window.location.reload();
+    ///window.location.reload();
   };
 
   return (
