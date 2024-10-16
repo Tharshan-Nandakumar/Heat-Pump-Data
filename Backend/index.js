@@ -177,7 +177,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["https://heat-pump-data-frontend.vercel.app"], // http://localhost:5173
+    origin: ["https://heat-pump-data-frontend.vercel.app"], //  http://localhost:5173
     methods: ["GET", "POST"],
     credentials: true,
   })
@@ -377,6 +377,144 @@ app.get("/api/proxy-data-htg", async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+
+// const { Builder, By, until } = require("selenium-webdriver");
+// const chrome = require("selenium-webdriver/chrome");
+// const fs = require("fs");
+
+// // Function to perform the scraping process
+// (async function scrapeData() {
+//   let driver = await new Builder().forBrowser("chrome").build(); // Initialize Chrome WebDriver
+
+//   // let options = new chrome.Options();
+//   // options.addArguments("--headless"); // Run in headless mode
+//   // options.addArguments("--disable-gpu"); // Disable GPU acceleration (optional but useful for headless mode)
+//   // options.addArguments("--no-sandbox"); // Necessary for some environments (e.g., Linux)
+//   // options.addArguments("--disable-dev-shm-usage"); // Prevent crashes in some environments
+//   // options.addArguments("--disable-extensions"); // Disable unnecessary extensions
+
+//   // let driver = await new Builder()
+//   //   .forBrowser("chrome")
+//   //   .setChromeOptions(options)
+//   //   .build();
+
+//   try {
+//     // Go to the login page
+//     await driver.get("http://178.211.198.76:10000/login.html");
+
+//     // Wait for the page to load (adjust timeout if needed)
+//     await driver.sleep(30000); // Sleep for 30 seconds to give time for the page to load
+
+//     // Login process
+//     const username = "Viewer";
+//     const password = "Rendesco24!";
+//     await driver.findElement(By.name("j_username")).sendKeys(username);
+//     await driver.findElement(By.name("j_password")).sendKeys(password);
+
+//     // Click the login button
+//     const loginButton = await driver.findElement(By.id("formSubmitButton"));
+//     await driver.executeScript("arguments[0].click();", loginButton);
+
+//     // Wait for 3 seconds for login to process
+//     await driver.sleep(3000);
+
+//     // After login, navigate to the data page
+//     await driver.get(
+//       "http://178.211.198.76:10000/eclypse/envysion/viewer.html?proj=Rendesco_1040#mode=view&node=AG9AHEH-MB8-1B1-34G-H8731C7"
+//     );
+
+//     // Wait for the specific data element to load (600 seconds timeout)
+//     const wait = 600000; // 600 seconds
+//     const flowT = await driver.wait(
+//       until.elementLocated(
+//         By.css(
+//           "#rootDiv > div > div > div > div:nth-child(1) > div > div.dgGroup.absolute > div.dgGroup.vertical > div.dgGroup.absolute > div > div > div.absolute > div > div:nth-child(4) > div.dgDisableMouseSelf.absolute > div > div > div > div.dgGroup.vertical.dg_vgap_start_3.dg_nopadding_last_start_vertical_6 > div:nth-child(1) > div:nth-child(2)"
+//         )
+//       ),
+//       wait
+//     );
+//     const returnT = await driver.wait(
+//       until.elementLocated(
+//         By.css(
+//           "#rootDiv > div > div > div > div:nth-child(1) > div > div.dgGroup.absolute > div.dgGroup.vertical > div.dgGroup.absolute > div > div > div.absolute > div > div:nth-child(4) > div.dgDisableMouseSelf.absolute > div > div > div > div.dgGroup.vertical.dg_vgap_start_3.dg_nopadding_last_start_vertical_6 > div:nth-child(2) > div:nth-child(2)"
+//         )
+//       ),
+//       wait
+//     );
+//     const pressure = await driver.wait(
+//       until.elementLocated(
+//         By.css(
+//           "#rootDiv > div > div > div > div:nth-child(1) > div > div.dgGroup.absolute > div.dgGroup.vertical > div.dgGroup.absolute > div > div > div.absolute > div > div:nth-child(4) > div.dgDisableMouseSelf.absolute > div > div > div > div.dgGroup.vertical.dg_vgap_start_3.dg_nopadding_last_start_vertical_6 > div:nth-child(3) > div:nth-child(2)"
+//         )
+//       ),
+//       wait
+//     );
+//     const pump_1_fault = await driver.wait(
+//       until.elementLocated(
+//         By.css(
+//           "#rootDiv > div > div > div > div:nth-child(1) > div > div.dgGroup.absolute > div.dgGroup.vertical > div.dgGroup.absolute > div > div > div.absolute > div > div:nth-child(4) > div.dgDisableMouseSelf.absolute > div > div > div > div.dgGroup.vertical.dg_vgap_start_3.dg_nopadding_last_start_vertical_6 > div:nth-child(4) > div:nth-child(2)"
+//         )
+//       ),
+//       wait
+//     );
+//     const pump_2_fault = await driver.wait(
+//       until.elementLocated(
+//         By.css(
+//           "#rootDiv > div > div > div > div:nth-child(1) > div > div.dgGroup.absolute > div.dgGroup.vertical > div.dgGroup.absolute > div > div > div.absolute > div > div:nth-child(4) > div.dgDisableMouseSelf.absolute > div > div > div > div.dgGroup.vertical.dg_vgap_start_3.dg_nopadding_last_start_vertical_6 > div:nth-child(5) > div:nth-child(2)"
+//         )
+//       ),
+//       wait
+//     );
+//     const pumps_running = await driver.wait(
+//       until.elementLocated(
+//         By.css(
+//           "#rootDiv > div > div > div > div:nth-child(1) > div > div.dgGroup.absolute > div.dgGroup.vertical > div.dgGroup.absolute > div > div > div.absolute > div > div:nth-child(4) > div.dgDisableMouseSelf.absolute > div > div > div > div.dgGroup.vertical.dg_vgap_start_3.dg_nopadding_last_start_vertical_6 > div:nth-child(6) > div:nth-child(2)"
+//         )
+//       ),
+//       wait
+//     );
+
+//     // Define a function to get the flow temperature and print it
+//     async function getdata() {
+//       try {
+//         const flowTempText = await flowT.getText();
+//         const returnTempText = await returnT.getText();
+//         const pressureText = await pressure.getText();
+//         const pump1FaultText = await pump_1_fault.getText();
+//         const pump2FaultText = await pump_2_fault.getText();
+//         const pumpRunningText = await pumps_running.getText();
+
+//         // Store the scraped data in the scrapedData variable
+//         scrapedData = {
+//           flowTemperature: flowTempText,
+//           returnTemperature: returnTempText,
+//           pressure: pressureText,
+//           pump1Fault: pump1FaultText,
+//           pump2Fault: pump2FaultText,
+//           pumpsRunning: pumpRunningText,
+//         };
+//         console.log(scrapedData);
+//       } catch (error) {
+//         console.error("Error occurred while getting data:", error);
+//       }
+//     }
+
+//     // Get the flow temperature initially
+//     await getdata();
+
+//     // Scrape every 30 seconds
+//     setInterval(async () => {
+//       await getdata();
+//     }, 3000);
+//   } catch (error) {
+//     console.error("Error occurred during scraping:", error);
+//   }
+// })();
+
+// app.get("/lmh", (req, res) => {
+//   // Send the scraped data as a JSON response
+//   res.json(scrapedData);
+// });
 
 app.listen(3306, () => {
   console.log("Listening");
