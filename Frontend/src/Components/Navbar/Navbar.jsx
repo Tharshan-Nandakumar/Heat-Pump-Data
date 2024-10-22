@@ -2,11 +2,14 @@ import { MenuItems } from "./MenuItems";
 import "./Navbar.css";
 import { useState } from "react";
 import Rendesco from "../Images/Rendesco.png";
+import { useNavigate } from "react-router-dom";
+
 const Navbar = ({ handleLogoutRedirect }) => {
   const [clicked, setClicked] = useState(false);
   const handleClick = () => {
     setClicked(!clicked);
   };
+  const navigate = useNavigate();
   return (
     <nav className="NavbarItems">
       <img
@@ -39,7 +42,12 @@ const Navbar = ({ handleLogoutRedirect }) => {
                   </a>
                 </div>
               ) : (
-                <a className={item.cName} href={item.url}>
+                <a
+                  className={item.cName}
+                  onClick={() => {
+                    navigate(item.url);
+                  }}
+                >
                   {item.title}
                 </a>
               )}
