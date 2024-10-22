@@ -100,8 +100,8 @@ function App() {
         {activeAccount ? (
           <>
             <div style={{ padding: "0" }}>
-              <Navbar handleLogoutRedirect={handleLogoutRedirect} />
               <Router>
+                <Navbar handleLogoutRedirect={handleLogoutRedirect} />
                 <Routes>
                   <Route path="/" element={<Map />} />
                   <Route path="live_data/:site" element={<Inputs />} />
