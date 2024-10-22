@@ -1,11 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import HealthReport from "../HealthReport/HealthReport";
 import WebScrape from "../LiveReadings/WebScrape";
+import { useParams, useNavigate } from "react-router-dom";
+import backButton from "./backButton";
 
 function Inputs() {
+  const { site } = useParams();
+  const navigate = useNavigate();
+  const handleBack = () => {
+    navigate(-1); // Go back to the previous page
+  };
   const [location, setLocation] = useState("");
-  const [selectedLocation, setSelectedLocation] = useState("Aldridge");
+  const [selectedLocation, setSelectedLocation] = useState(
+    site.split("- ")[1].replace(" ", "_")
+  );
+  console.log(selectedLocation);
   const [date, setDate] = useState("");
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
@@ -18,7 +28,7 @@ function Inputs() {
     //console.log(Date);
     axios
       .post(
-        "https://heat-pump-data-backend.onrender.com/locs" /* http://localhost:3306/locs"*/,
+        "https://heat-pump-data-backend.onrender.com/locs" /* "http://localhost:3306/locs*/,
         {
           location: e.target.elements.location.value,
           date: e.target.elements.date.value,
@@ -41,6 +51,23 @@ function Inputs() {
         );
       });
   }
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Backspace") {
+        handleBack();
+      }
+    };
+
+    // Add the event listener when the component mounts
+    window.addEventListener("keydown", handleKeyDown);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   //"https://heat-pump-data-backend.vercel.app"
   const locations = [
     "Aldridge",
@@ -118,9 +145,9 @@ function Inputs() {
 
   return (
     <div className="website">
-      <h1 className="title">Heat Pump Data</h1>
+      <div onClick={handleBack}>{backButton}</div>
       <form onSubmit={handleSubmit} className="form-group">
-        <div className="inputs">
+        <div className="inputs" style={{ marginTop: "3%" }}>
           <div>
             <h4>
               <label htmlFor="location-select">Choose a location:</label>
@@ -128,7 +155,7 @@ function Inputs() {
             <select
               id="location-select"
               name="location"
-              //value={location}
+              value={selectedLocation}
               onChange={(e) => setSelectedLocation(e.target.value)}
               className="form-control form-control-lg"
               required
@@ -153,7 +180,7 @@ function Inputs() {
               //onChange={(e) => setDate(e.target.value)}
               required
             />
-            <button className="button" type="submit">
+            <button className="button" type="submit" style={{ margin: "1% 0" }}>
               Generate PDF
             </button>
           </div>
