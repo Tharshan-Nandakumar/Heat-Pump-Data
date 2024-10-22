@@ -177,7 +177,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["https://heat-pump-data-frontend.vercel.app"], //  http://localhost:5173
+    origin: ["https://heat-pump-data-frontend.vercel.app"], //   http://localhost:5173
     methods: ["GET", "POST"],
     credentials: true,
   })
