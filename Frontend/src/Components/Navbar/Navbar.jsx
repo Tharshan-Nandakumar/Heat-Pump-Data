@@ -44,6 +44,7 @@ const Navbar = ({ handleLogoutRedirect }) => {
               ) : (
                 <a
                   className={item.cName}
+                  style={{ cursor: "pointer" }}
                   onClick={() => {
                     navigate(item.url);
                   }}
