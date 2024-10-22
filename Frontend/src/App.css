@@ -3,9 +3,30 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+#map {
+  border: 1px solid #ccc;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  align-self: center;
+  display: flex;
+}
 .website {
   margin: 0;
   padding: 0;
+}
+
+#logo_main {
+  position: absolute;
+  width: 200px;
+  left: 1%;
+  padding: 2em;
 }
 
 #live_data {
@@ -97,8 +118,6 @@
 
 #logo {
   position: absolute;
-  top: 10px;
-  right: 10px;
   width: 225px;
   height: auto;
 }
@@ -164,22 +183,108 @@ h6 {
 }
 
 /* Table Header */
-#heat_pump_data thead tr,
-button {
+#heat_pump_data thead tr {
   background-color: #1cb683;
-  color: #ffffff;
   text-align: center;
   font-size: 20px;
 }
 
-button {
+/* button {
   border-radius: 10px;
   border: 1px solid black;
   width: 100%;
   margin: 10px 0;
   margin-bottom: 2%;
+} */
+
+.gauges-container {
+  padding: 2%;
+  position: relative;
 }
 
+.gauge {
+  height: 12vh;
+}
+
+#direction path {
+  fill: white; /* Default to white */
+  transition: fill 0.3s ease; /* Smooth transition */
+}
+
+/* Change to pale light green on hover */
+#direction:hover path {
+  fill: #a0ead1; /* Pale light green */
+}
+
+/* Change to darker green when clicked (active state) */
+#direction:active path {
+  fill: #299f76; /* Darker green */
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff; /* White background */
+  border: 2px solid #299f76; /* Green border */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1.2rem;
+  padding: 1%;
+  margin: 0;
+}
+
+button:hover {
+  background-color: #e8f5f1; /* Pale light green background on hover */
+}
+
+button:active {
+  background-color: #299f76; /* Darker green when clicked */
+}
+
+.back {
+  cursor: pointer;
+  transition: fill 0.3s ease, stroke 0.3s ease;
+  position: relative;
+  top: "5%";
+  left: "3%";
+}
+
+.back:hover circle,
+.back:hover line,
+.back:hover polyline {
+  fill: none; /* Light green fill on hover */
+  stroke: #1cb683; /* Darker green stroke on hover */
+}
+
+.back:active circle,
+.back:active line,
+.back:active polyline {
+  fill: none; /* Dark green fill on active click */
+  stroke: #299f76; /* Even darker green stroke when clicked */
+}
+
+.click {
+  cursor: pointer;
+  transition: white 0.3s ease;
+}
+
+.click:hover {
+  background-color: #e8f5f1; /* Pale light green background on hover */
+}
+
+.click:active {
+  background-color: #299f76; /* Darker green when clicked */
+}
+
+.click2:hover,
+#Back > g > g > circle {
+  background-color: #e8f5f1;
+  border-radius: 4px;
+  transition: all 0.2s ease-out;
+  text-decoration: underline;
+  cursor: pointer;
+}
 .input-container input {
   box-sizing: border-box;
   outline: 0;
@@ -236,8 +341,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
   #logo {
     width: 180px; /* Adjust logo size */
-    top: 10px;
-    right: 10px;
   }
 
   .error {
@@ -283,8 +386,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width: 90%;
   }
 
-  #heat_pump_data thead tr,
-  button {
+  #heat_pump_data thead tr {
     background-color: #1cb683;
     color: #ffffff;
     text-align: center;
@@ -302,8 +404,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
   #logo {
     width: 150px; /* Smaller logo */
-    top: 10px;
-    right: 10px;
   }
 
   h1 {
@@ -349,8 +449,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width: 95%;
   }
 
-  #heat_pump_data thead tr,
-  button {
+  #heat_pump_data thead tr {
     background-color: #1cb683;
     color: #ffffff;
     text-align: center;
@@ -416,8 +515,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 
   /* Table Header */
-  #heat_pump_data thead tr,
-  button {
+  #heat_pump_data thead tr {
     background-color: #1cb683;
     color: #ffffff;
     text-align: center;
