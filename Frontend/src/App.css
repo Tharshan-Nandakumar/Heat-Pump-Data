@@ -405,6 +405,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin-left: 5%;
   }
 
+  #logo_main {
+    left: 10px;
+  }
+
   #logo {
     width: 150px; /* Smaller logo */
   }
@@ -464,6 +468,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-size: 0.7em; /* Smaller font */
     position: relative;
     width: 100%;
+  }
+
+  #logo_main {
+    left: 10px;
+    width: 170px;
   }
 
   .data {
