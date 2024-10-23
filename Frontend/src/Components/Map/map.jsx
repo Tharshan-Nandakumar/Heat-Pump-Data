@@ -172,6 +172,32 @@ function Map() {
     };
   }, [selectedMarker, searchTerm, hoveredMarker]);
   // console.log(selectedCustomers);
+
+  function useWindowSize() {
+    const [windowSize, setWindowSize] = useState({
+      width: undefined,
+      height: undefined,
+    });
+
+    useEffect(() => {
+      // Function to update the window size
+      function handleResize() {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }
+
+      window.addEventListener("resize", handleResize);
+      handleResize(); // Call to set initial size
+
+      return () => window.removeEventListener("resize", handleResize);
+    }, []); // Empty array ensures this effect runs only on mount
+
+    return windowSize;
+  }
+
+  const size = useWindowSize();
   return isLoaded ? (
     <>
       <div
@@ -263,6 +289,7 @@ function Map() {
           />
         </svg>
       </div>
+
       <input
         ref={inputRef}
         type="text"
@@ -359,33 +386,48 @@ function Map() {
           padding: "10px",
         }}
       >
-        {Object.entries(customerColors).map(([customer, color], index) => (
-          <div
-            key={customer}
-            onClick={() => handleLegendClick(customer)}
-            style={{
-              cursor: "pointer",
-              padding: "5px 10px",
-              opacity: selectedCustomers.includes(customer) ? 1.0 : 0.5,
-              borderRadius: "5px",
-              display: "flex",
-              alignItems: "center",
-              position: "absolute",
-              left: "82%",
-              top: `${40 + index * 6}%`,
-            }}
-          >
+        {Object.entries(customerColors).map(([customer, color], index) => {
+          let displayName;
+          if (customer === "Churchill Retirement Living" && size.width < 1350) {
+            displayName = customer.split(" ")[0];
+          }
+          if (customer === "Park View Care Home" && size.width < 1140) {
+            displayName = "Park View";
+          }
+          if (customer === "McCarthy and Stone" && size.width < 1090) {
+            displayName = "McCarthy";
+          }
+          if (customer === "Park View Care Home" && size.width < 675) {
+            displayName = "Park";
+          }
+          return (
             <div
+              key={customer}
+              onClick={() => handleLegendClick(customer)}
               style={{
-                width: "20px",
-                height: "20px",
-                backgroundColor: color,
-                marginRight: "10px",
+                cursor: "pointer",
+                padding: "5px 10px",
+                opacity: selectedCustomers.includes(customer) ? 1.0 : 0.5,
+                borderRadius: "5px",
+                display: "flex",
+                alignItems: "center",
+                position: "absolute",
+                left: "82%",
+                top: `${40 + index * 6}%`,
               }}
-            ></div>
-            {customer}
-          </div>
-        ))}
+            >
+              <div
+                style={{
+                  width: "20px",
+                  height: "20px",
+                  backgroundColor: color,
+                  marginRight: "10px",
+                }}
+              ></div>
+              {displayName ? displayName : customer}
+            </div>
+          );
+        })}
         <button
           style={{
             cursor: "pointer",
