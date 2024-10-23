@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 let marker = null;
-const Sidebar = ({ marker, sidebarRef }) => {
+const Sidebar = ({ marker, sidebarRef, width }) => {
   const navigate = useNavigate();
   const liveData = () => {
     navigate(`/live_data/${marker.site}`);
@@ -39,9 +39,10 @@ const Sidebar = ({ marker, sidebarRef }) => {
             margin: "4%",
             marginRight: 0,
             width: "50%",
+
             fontWeight: "bolder",
             color: "black",
-            fontSize: "1.4em",
+            fontSize: width > 1180 ? "1.4em" : width > 1010 ? "1.2em" : "1em",
           }}
         >
           {marker?.customer !== "Engineer"
@@ -56,7 +57,7 @@ const Sidebar = ({ marker, sidebarRef }) => {
               margin: "0",
               marginLeft: "0%",
               border: "None",
-              fontSize: "1.3em",
+              fontSize: width > 1205 ? "1.3em" : width > 1010 ? "1.1em" : "1em",
               fontWeight: "strong",
               color: "black",
             }}
@@ -83,7 +84,7 @@ const Sidebar = ({ marker, sidebarRef }) => {
       {marker?.customer !== "Engineer" ? (
         <div style={{ padding: "4%", position: "relative" }}>
           <p>
-            <strong>Lodge:</strong> {marker?.site.split(" - ")[0]}
+            <stong>Lodge:</stong> {marker?.site.split(" - ")[0]}
           </p>
           <p>
             <strong>Customer:</strong> {marker?.customer}
@@ -115,7 +116,8 @@ const sidebarVisibleStyles = {
   position: "fixed",
   left: 0,
   top: 0,
-  width: "25%",
+  width: "30%",
+  minWidth: "250px",
   height: "100%",
   backgroundColor: "#f8f9fa",
   boxShadow: "2px 0 5px rgba(0,0,0,0.1)",
@@ -126,6 +128,7 @@ const sidebarVisibleStyles = {
 const sidebarHiddenStyles = {
   ...sidebarVisibleStyles,
   left: "-30%", // Hidden state: position the sidebar off-screen
+  minWidth: "0px",
 };
 
 const buttonStyles = {

@@ -433,7 +433,11 @@ function Map() {
 
         <></>
       </GoogleMap>
-      <Sidebar marker={selectedMarker} sidebarRef={sidebarRef} />
+      <Sidebar
+        marker={selectedMarker}
+        sidebarRef={sidebarRef}
+        width={size.width}
+      />
       <div
         style={{
           display: "flex",
