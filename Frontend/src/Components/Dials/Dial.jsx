@@ -4,7 +4,7 @@ import { Chart, ArcElement, Tooltip, Title } from "chart.js";
 // Register the Chart.js components
 Chart.register(ArcElement, Tooltip, Title);
 
-const Dial = ({ value, label }) => {
+const Dial = ({ value, label, fontsize }) => {
   const data = {
     datasets: [
       {
@@ -27,7 +27,7 @@ const Dial = ({ value, label }) => {
         display: true,
         text: label,
         font: {
-          size: "16em",
+          size: fontsize, //"16em",
           weight: "bold",
         },
       },

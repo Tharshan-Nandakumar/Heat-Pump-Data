@@ -229,13 +229,24 @@ function Map() {
           <div
             className="gauge"
             style={{
-              maxWidth: "150px",
+              maxWidth: size.width > 660 ? "150px" : "80px",
               minHeight: "80px",
             }}
           >
-            <Dial value={87} label="Control" />
+            <Dial
+              value={87}
+              label="Control"
+              fontsize={size.width > 660 ? "16em" : "14em"}
+            />
           </div>
-          <p style={{ marginTop: "-18%", fontSize: "1.2em" }}>87%</p>
+          <p
+            style={{
+              marginTop: size.width > 660 ? "-18%" : "-38%",
+              fontSize: "1.2em",
+            }}
+          >
+            87%
+          </p>
         </div>
 
         <div
@@ -248,11 +259,25 @@ function Map() {
         >
           <div
             className="gauge"
-            style={{ maxWidth: "150px", minHeight: "80px" }}
+            style={{
+              maxWidth: size.width > 660 ? "150px" : "80px",
+              minHeight: "80px",
+            }}
           >
-            <Dial value={87} label="Meter" />
+            <Dial
+              value={87}
+              label="Meter"
+              fontsize={size.width > 660 ? "16em" : "14em"}
+            />
           </div>
-          <p style={{ marginTop: "-18%", fontSize: "1.2em" }}>87%</p>
+          <p
+            style={{
+              marginTop: size.width > 660 ? "-18%" : "-38%",
+              fontSize: "1.2em",
+            }}
+          >
+            87%
+          </p>
         </div>
 
         <div
@@ -264,11 +289,25 @@ function Map() {
         >
           <div
             className="gauge"
-            style={{ maxWidth: "150px", minHeight: "80px" }}
+            style={{
+              maxWidth: size.width > 660 ? "150px" : "80px",
+              minHeight: "80px",
+            }}
           >
-            <Dial value={96} label="Fault Code (24hrs)" />
+            <Dial
+              value={96}
+              label={size.width > 660 ? "Fault Code (24hrs)" : "Fault Code"}
+              fontsize={size.width > 660 ? "16em" : "14em"}
+            />
           </div>
-          <p style={{ marginTop: "-18%", fontSize: "1.2em" }}>96%</p>
+          <p
+            style={{
+              marginTop: size.width > 660 ? "-18%" : "-38%",
+              fontSize: "1.2em",
+            }}
+          >
+            96%
+          </p>
         </div>
       </div>
 
