@@ -175,7 +175,17 @@ const HealthReport = ({ location, date, data, error }) => {
         <div id="heat_pump_data">
           <div className="table-heading">
             <h1 id="health_report">Health Report</h1>
-            <img id="logo" src={Rendesco} alt="Rendesco logo" />
+            <img
+              id="logo"
+              src={Rendesco}
+              alt="Rendesco logo"
+              style={{
+                top: "10px",
+                right: "20px",
+                width: "20%",
+                minWidth: "120px",
+              }}
+            />
           </div>
           <div className="data">
             <h4>
