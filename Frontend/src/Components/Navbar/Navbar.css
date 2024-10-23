@@ -156,4 +156,8 @@
   .data #table {
     width: 100%; /* Full width table for smaller screens */
   }
+
+  .NavbarItems {
+    height: 7vh;
+  }
 }
