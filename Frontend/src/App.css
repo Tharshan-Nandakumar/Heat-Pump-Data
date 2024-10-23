@@ -405,10 +405,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin-left: 5%;
   }
 
-  #logo_main {
-    left: 2px;
-  }
-
   #logo {
     width: 150px; /* Smaller logo */
   }
@@ -471,8 +467,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 
   #logo_main {
-    left: 2px;
-    width: 170px;
+    left: 1px;
   }
 
   .data {
@@ -593,5 +588,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
   .data {
     padding-bottom: 2px;
+  }
+
+  #logo_main {
+    left: 2px;
+    width: 170px;
   }
 }
