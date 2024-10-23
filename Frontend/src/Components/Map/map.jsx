@@ -496,7 +496,7 @@ function Map() {
             fontSize: "1em",
             alignItems: "center",
             position: "absolute",
-            left: "70%",
+            left: size.width > 660 ? "85%" : "70%",
             top: `71%`,
           }}
           onClick={() => {
