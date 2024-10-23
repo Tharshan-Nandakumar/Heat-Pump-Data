@@ -9,6 +9,10 @@ body {
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
+#dials {
+  left: 5%;
+}
+
 #map {
   border: 1px solid #ccc;
   width: 100%;
@@ -453,6 +457,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 /* Ultra Small Devices (Phones in Portrait Mode) */
 @media screen and (max-width: 660px) {
+  #dials {
+    left: 0%;
+  }
   #heat_pump_data {
     font-size: 0.7em; /* Smaller font */
     position: relative;

@@ -27,7 +27,7 @@ const Dial = ({ value, label }) => {
         display: true,
         text: label,
         font: {
-          size: "18em",
+          size: "16em",
           weight: "bold",
         },
       },

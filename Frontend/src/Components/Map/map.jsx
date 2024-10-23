@@ -11,14 +11,6 @@ import Sidebar from "./Sidebar";
 import { useNavigate } from "react-router-dom";
 import Dial from "../Dials/Dial";
 
-const containerStyle = {
-  width: "60%",
-  height: "65vh",
-  margin: "1.9vh auto",
-  paddingTop: "1.2%",
-  border: "1px solid black",
-};
-
 const defaultCenter = {
   lat: 52.7134984,
   lng: -1.198804,
@@ -47,20 +39,6 @@ function Map() {
     "Engineer",
   ]);
   const inputRef = useRef(null);
-
-  const searchBarStyles = {
-    position: "relative",
-    left: "50%",
-    transform: "translateX(-50%)",
-    width: "30%",
-    padding: "1%",
-    marginBottom: "-2%",
-    borderRadius: "1%",
-    fontSize: "1em",
-    height: "5.5vh",
-    border: isFocused ? "3px solid #299f76" : "3px solid #ccc",
-    outline: "none",
-  };
 
   const handleLegendClick = (customer) => {
     console.log(customer);
@@ -198,9 +176,35 @@ function Map() {
   }
 
   const size = useWindowSize();
+
+  const containerStyle = {
+    width: "60%",
+    height: "65vh",
+    margin: size.width > 660 ? "1.9vh auto" : "1.9vh 5%",
+    paddingTop: "1.2%",
+    border: "1px solid black",
+  };
+
+  const searchBarStyles = {
+    position: "relative",
+    left: size.width > 660 ? "50%" : "35%",
+    transform: "translateX(-50%)",
+    minWidth: "150px",
+    width: "30%",
+    maxWidth: "250px",
+    padding: "1%",
+    marginBottom: "-2%",
+    borderRadius: "1%",
+    fontSize: "1em",
+    height: "5.5vh",
+    border: isFocused ? "3px solid #299f76" : "3px solid #ccc",
+    outline: "none",
+  };
+
   return isLoaded ? (
     <>
       <div
+        id="dials"
         style={{
           position: "relative",
           marginTop: "0.2%",
@@ -209,7 +213,6 @@ function Map() {
           alignItems: "center",
           width: "90vw",
           minWidth: "20vw",
-          left: "5%",
           marginBottom: "-0.5%",
           padding: 0,
         }}
@@ -225,7 +228,10 @@ function Map() {
         >
           <div
             className="gauge"
-            style={{ maxWidth: "150px", minHeight: "80px" }}
+            style={{
+              maxWidth: "150px",
+              minHeight: "80px",
+            }}
           >
             <Dial value={87} label="Control" />
           </div>
@@ -298,7 +304,7 @@ function Map() {
           />
         </svg>
       </div>
-
+      {/* <p>{size.width}</p> */}
       <input
         ref={inputRef}
         type="text"
@@ -312,6 +318,7 @@ function Map() {
       />
 
       <GoogleMap
+        id="google_map"
         mapContainerStyle={containerStyle}
         center={defaultCenter}
         zoom={6.4}
@@ -421,7 +428,7 @@ function Map() {
                 display: "flex",
                 alignItems: "center",
                 position: "absolute",
-                left: "82%",
+                left: size.width > 660 ? "82%" : "67%",
                 top: `${40 + index * 6}%`,
               }}
             >
@@ -446,7 +453,7 @@ function Map() {
             fontSize: "1em",
             alignItems: "center",
             position: "absolute",
-            left: "85%",
+            left: "70%",
             top: `71%`,
           }}
           onClick={() => {
