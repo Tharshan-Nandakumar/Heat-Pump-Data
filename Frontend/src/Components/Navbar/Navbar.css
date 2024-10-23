@@ -27,7 +27,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-size: 1.2rem;
-  padding: 0.5rem;
+  padding: 0.5em;
   color: black;
   text-decoration: none;
 }
@@ -80,17 +80,19 @@
 
   .nav-menu.active {
     background: #1cb683;
-    left: 0;
+    left: -4%;
+    top: 100%;
     opacity: 1;
     transition: all 0.5s ease;
     z-index: 1;
+    width: 104%;
   }
 
   .nav-links {
     text-align: center;
     padding: 2rem;
-    width: 100%;
     display: table;
+    width: 100%;
   }
 
   .nav-links:hover {
@@ -100,9 +102,9 @@
 
   .menu-icon {
     display: block;
-    position: absolute;
-    top: -2vh;
-    right: 0;
+    position: relative;
+    top: -30px;
+    right: -49%;
     transform: translate(-100%, 60%);
     font-size: 1.8rem;
     cursor: pointer;

@@ -47,6 +47,7 @@ const Navbar = ({ handleLogoutRedirect }) => {
                   style={{ cursor: "pointer" }}
                   onClick={() => {
                     navigate(item.url);
+                    clicked ? handleClick() : null;
                   }}
                 >
                   {item.title}

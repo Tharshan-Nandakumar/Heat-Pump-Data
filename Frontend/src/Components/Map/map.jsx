@@ -15,7 +15,7 @@ const containerStyle = {
   width: "60%",
   height: "65vh",
   margin: "1.9vh auto",
-  marginTop: "1.2%",
+  paddingTop: "1.2%",
   border: "1px solid black",
 };
 
@@ -223,7 +223,10 @@ function Map() {
             alignItems: "center",
           }}
         >
-          <div className="gauge" style={{ maxWidth: "150px" }}>
+          <div
+            className="gauge"
+            style={{ maxWidth: "150px", minHeight: "80px" }}
+          >
             <Dial value={87} label="Control" />
           </div>
           <p style={{ marginTop: "-18%", fontSize: "1.2em" }}>87%</p>
@@ -237,7 +240,10 @@ function Map() {
             alignItems: "center",
           }}
         >
-          <div className="gauge" style={{ maxWidth: "150px" }}>
+          <div
+            className="gauge"
+            style={{ maxWidth: "150px", minHeight: "80px" }}
+          >
             <Dial value={87} label="Meter" />
           </div>
           <p style={{ marginTop: "-18%", fontSize: "1.2em" }}>87%</p>
@@ -250,7 +256,10 @@ function Map() {
             alignItems: "center",
           }}
         >
-          <div className="gauge" style={{ maxWidth: "150px" }}>
+          <div
+            className="gauge"
+            style={{ maxWidth: "150px", minHeight: "80px" }}
+          >
             <Dial value={96} label="Fault Code (24hrs)" />
           </div>
           <p style={{ marginTop: "-18%", fontSize: "1.2em" }}>96%</p>
