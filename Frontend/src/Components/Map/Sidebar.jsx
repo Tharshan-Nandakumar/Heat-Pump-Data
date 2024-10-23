@@ -18,6 +18,14 @@ const Sidebar = ({ marker, sidebarRef, width }) => {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
     window.open(url, "_blank"); // Open Google Maps directions in a new tab
   };
+  console.log(width);
+  const sidebarHiddenStyles = {
+    ...sidebarVisibleStyles,
+    left: width < "700" ? "-250px" : "-30%", // Hidden state: position the sidebar off-screen
+    minWidth: "0px",
+    //width: "250px",
+  };
+
   return (
     <div
       ref={sidebarRef}
@@ -123,12 +131,6 @@ const sidebarVisibleStyles = {
   boxShadow: "2px 0 5px rgba(0,0,0,0.1)",
   transition: "left 0.5s ease-in-out",
   color: "#3b4049",
-};
-
-const sidebarHiddenStyles = {
-  ...sidebarVisibleStyles,
-  left: "-30%", // Hidden state: position the sidebar off-screen
-  minWidth: "0px",
 };
 
 const buttonStyles = {

@@ -197,6 +197,7 @@ function Map() {
     borderRadius: "1%",
     fontSize: "1em",
     height: "5.5vh",
+    minHeight: "28px",
     border: isFocused ? "3px solid #299f76" : "3px solid #ccc",
     outline: "none",
   };
@@ -472,7 +473,10 @@ function Map() {
                 alignItems: "center",
                 position: "absolute",
                 left: size.width > 660 ? "82%" : "67%",
-                top: `${40 + index * 6}%`,
+                top:
+                  size.height > 400
+                    ? `${40 + index * 6}%`
+                    : `${150 + index * 30}px`,
               }}
             >
               <div
@@ -497,7 +501,7 @@ function Map() {
             alignItems: "center",
             position: "absolute",
             left: size.width > 660 ? "85%" : "70%",
-            top: `71%`,
+            top: size.height > 400 ? `71%` : "305px",
           }}
           onClick={() => {
             setSelectedMarker(null);
