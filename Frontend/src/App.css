@@ -592,6 +592,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
   #logo_main {
     left: 2px;
-    width: 170px;
+    width: 100px;
   }
 }
