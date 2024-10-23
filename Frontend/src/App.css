@@ -327,9 +327,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .export_button {
   position: static;
-  width: 80%;
+  width: fit-content;
   text-align: center;
-  margin-left: 10%;
+  margin: 10px auto;
 }
 
 /* Responsive Styles for Tablets */
@@ -348,8 +348,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin-left: 5%;
   }
 
-  .inputs,
-  .export_button {
+  .inputs {
     width: 90%;
     margin-left: 5%;
   }
@@ -419,13 +418,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin-left: 5%;
   }
 
-  .inputs,
-  .export_button {
+  .inputs {
     width: 100%; /* Full width inputs and buttons */
-  }
-
-  .export_button {
-    margin-left: 5%;
   }
 
   .data h6 {
@@ -526,15 +520,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin-left: 5%;
   }
 
-  .export_button {
-    position: static;
-    width: 100%;
-    text-align: center;
-    margin-left: 5%;
-    font-size: 0.8em;
-    margin-top: -10px;
-  }
-
   #location-select,
   #date,
   button {
@@ -546,8 +531,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 @media screen and (max-width: 480px) {
-  #heat_pump_data,
-  .export_button {
+  #heat_pump_data {
     margin-left: 5%;
   }
 
