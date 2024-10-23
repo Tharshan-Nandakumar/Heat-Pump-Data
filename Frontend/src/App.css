@@ -406,7 +406,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 
   #logo_main {
-    left: 10px;
+    left: 2px;
   }
 
   #logo {
@@ -471,7 +471,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 
   #logo_main {
-    left: 10px;
+    left: 2px;
     width: 170px;
   }
 
